@@ -1,0 +1,20 @@
+nav.navbar {
+  position:fixed;
+  top:10px;
+  left:20px;
+  right:20px;
+  z-index:10;
+}
+nav.navbar-default ul.navbar-nav>li:hover {
+  background:#E7E7E7;
+}
+div#body {
+  position:absolute;
+  top:70px;
+  left:10px;
+  right:10px;
+  bottom:0px;
+}
+.bold {
+  font-weight:700;
+}

@@ -1,0 +1,146 @@
+<html>
+	<head>
+    <script src = 'https://code.jquery.com/jquery.js'></script>
+		<script src = '../js/bootstrap.min.js'></script>
+    <script src = '../ace/ace.js' charset = 'utf-8'></script>
+		<link type = 'text/css' rel = 'stylesheet' href = '../css/bootstrap.min.css' />
+    <link type = 'text/css' rel = 'stylesheet' href = '../stylesheet.css' />
+	</head>
+  <body>
+    <nav class = 'navbar navbar-default' role = 'navigation'>
+      <div class = 'navbar-header'>
+        <a class = 'navbar-brand' href = '../'>FTC 6055</a>
+      </div>
+      <div class = 'collapse navbar-collapse'>
+        <ul class = 'nav navbar-nav navbar-left'>
+          <li class = 'dropdown'>
+            <a href = '#' class = 'dropdown-toggle' data-toggle = 'dropdown'>
+              Code
+              <span class = 'caret'></span>
+            </a>
+            <ul class = 'dropdown-menu'>
+              <li><a href = 'general.html'>General</a></li>
+              <li class = 'divider'></li>
+              <li><a href = 'ModdedJoystickDriver.c'>Our joystick driver</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class = 'nav navbar-nav navbar-right'>
+          <li><a href = '../about.html'>About us</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div id = 'body'>
+      <div class = 'panel panel-default'>
+        <div class = 'panel-heading bold'>Programming Environment</div>
+        <div class = 'panel-body'>
+          <p>
+            All of our programming is done in RobotC. It is generally quite nice, using easily-editable text files that compile very quickly.
+            The only significant downside is its Windows-exclusivity. Mac users can of course edit programs, but they can't compile them or use RobotC's joystick control.
+          </p>
+        </div>
+      </div>
+      <div class = 'panel panel-default'>
+        <div class = 'panel-heading bold'>GitHub</div>
+        <div class = 'panel-body'>
+          <p>
+            We use Git to keep track of all our code that is not for testing or needs to be shared around the team.
+            Each of our projects (Tele-op, Autonomous, Reset programs, etc.) have their own repository on GitHub.
+          </p>
+        </div>
+      </div>
+      <div class = 'panel panel-default'>
+        <div class = 'panel-heading bold'>Drivers</div>
+        <div class = 'panel-body'>
+          <p>
+            We use Xander Soldaat's <a href = 'http://botbench.com/blog/robotc-driver-suite/'>RobotC Driver Suite</a> for all sensor usage, which is especially useful for sensors like the IR sensor, which has many different values to be read.
+            The <a href = 'http://botbench.com/driversuite/group__tmr.html'>Timer Library</a> is also very useful for doing functions that require a timeout inside a constantly looping loop.
+            <br /><br />
+            For joystick control, we use a modified version of RobotC's built-in JoystickDriver.c.
+            We found that we can harm our robot significantly if the Samantha Module loses connectivity to the FCS, which can't be detected by JoystickDriver.c.
+            Read more <a href = 'http://www.technoguards.org/node/407'>here</a>.
+            We modified this code a little bit to make it more readable and to base the timeout on time instead of number of checks that didn't see a new message in a row, for greater accuracy.
+            See our version <a href = 'ModdedJoystickDriver.c'>here</a>.
+          </p>
+        </div>
+      </div>
+      <div class = 'panel panel-default'>
+        <div class = 'panel-heading bold'>Sensors</div>
+        <div class = 'panel-body'>
+          <p>
+            Our robot, which uses a holonomic drive system, has a gyroscopic sensor so we can adjust the robot's movements to the driver's perspective.
+          </p>
+          <div id = 'editor1' style = 'height:295px'>#pragma config(Sensor, S1,     gyroSen,        sensorI2CCustom) //set up the gyro sensor
+
+#include "drivers/hitechnic-gyro.h" //Xander's gyro sensor driver
+
+task main() {
+  float curdir = 0; //variable to keep track of current heading in degrees
+  int timeNow; //the current time
+  int timeLast; //the time in the previous loop cycle - difference is calculated to see how much the heading has changed (angle = angle/time * time)
+  ClearTimer(T1); //start the timer
+  timeLast = 0; //we have just started
+  while (true) { //infinite loop
+    timeNow = time1[T1]; //read from the timer in milliseconds
+    curdir += (float)(HTGYROreadRot(gyroSen)) * (float)(timeNow - timeLast) / 1000; //because the gyro sensor returns degrees/second, we must multiply that by the time difference in seconds to get the degree change
+    if (timeNow > 30000) { //prevent timer overflow, which happens at 32768 (2^15)
+      ClearTimer(T1); //reset the timer
+      timeLast = 0; //so the time isn't offset next loop cycle
+    }
+    else timeLast = timeNow; //the current time will be the last loop's time for the next cycle
+  }
+}</div>
+        <p>
+          We also use an IR sensor to locate the beacon in our autonomous program.
+        </p>
+        </div>
+      </div>
+      <div class = 'panel panel-default'>
+        <div class = 'panel-heading bold'>Autonomous</div>
+        <div class = 'panel-body'>
+          <p>
+            Our autonomous program uses a switch-case structure inside an infinite loop.
+            The first autonomous program we made was linear and used waits, but we quickly realized that it was important to be able to continuously update the power going to the driver motors and we also wanted the ability to datalog at every part of the program.
+          </p>
+          <div id = 'editor2' style = 'height:336px'>task main() {
+  int stage = 0; //variable to keep track of the current step of the program
+  while (true) { //infinite loop
+    switch (stage) {
+      case 0:
+        codeToRun;
+        if (stepCompleted) stage++;
+        break;
+      case 1:
+        codeToRun;
+        if (stepCompleted) stage++;
+        break;
+      ...
+      case n: //replace n with whatever you want the last stage to be
+        codeToRun;
+        if (stepCompleted) stage++;
+        break;
+      default: //will be triggered at the end of the program
+        codeToSetupForTeleop;
+        break; //no stage++ because there is no further stage
+    }
+    codeToRunForEveryStep;
+  }
+}</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      var editors = [];
+      editors.push(ace.edit('editor1'));
+      editors.push(ace.edit('editor2'));
+      for (var i = 0; i < editors.length; i++) {
+        editors[i].getSession().setMode('ace/mode/c_cpp');
+        editors[i].setReadOnly(true);
+        editors[i].setShowPrintMargin(false);
+      }
+      $(document).keydown(function(e) {
+        if (e.keyCode == 8) e.preventDefault();
+      });
+    </script>
+  </body>
+</html>
