@@ -1,11 +1,11 @@
 <html>
-	<head>
+  <head>
     <script src = 'https://code.jquery.com/jquery.js'></script>
-		<script src = '../js/bootstrap.min.js'></script>
+    <script src = '../js/bootstrap.min.js'></script>
     <script src = '../ace/ace.js' charset = 'utf-8'></script>
-		<link type = 'text/css' rel = 'stylesheet' href = '../css/bootstrap.min.css' />
+    <link type = 'text/css' rel = 'stylesheet' href = '../css/bootstrap.min.css' />
     <link type = 'text/css' rel = 'stylesheet' href = '../stylesheet.css' />
-	</head>
+  </head>
   <body>
     <nav class = 'navbar navbar-default' role = 'navigation'>
       <div class = 'navbar-header'>
@@ -46,6 +46,8 @@
           <p>
             We use Git to keep track of all our code that is not for testing or needs to be shared around the team.
             Each of our projects (Tele-op, Autonomous, Reset programs, etc.) have their own repository on GitHub.
+            This is useful so we can quickly see what has changed, have previous versions to which to rollback, and to make updating everyone's version of the code much more streamlined.
+            It also saves space to only keep track of changes than to store old versions of entire files, as we did last year.
           </p>
         </div>
       </div>
@@ -59,7 +61,7 @@
             For joystick control, we use a modified version of RobotC's built-in JoystickDriver.c.
             We found that we can harm our robot significantly if the Samantha Module loses connectivity to the FCS, which can't be detected by JoystickDriver.c.
             Read more <a href = 'http://www.technoguards.org/node/407'>here</a>.
-            We modified this code a little bit to make it more readable and to base the timeout on time instead of number of checks that didn't see a new message in a row, for greater accuracy.
+            We modified this code a little bit to make it more readable and to base the timeout on time instead of number of checks in a row that didn't see a new message, for greater accuracy.
             See our version <a href = 'ModdedJoystickDriver.c'>here</a>.
           </p>
         </div>
@@ -102,7 +104,7 @@ task main() {
             Our autonomous program uses a switch-case structure inside an infinite loop.
             The first autonomous program we made was linear and used waits, but we quickly realized that it was important to be able to continuously update the power going to the driver motors and we also wanted the ability to datalog at every part of the program.
           </p>
-          <div id = 'editor2' style = 'height:336px'>task main() {
+          <div id = 'editor2' style = 'height:351px'>task main() {
   int stage = 0; //variable to keep track of the current step of the program
   while (true) { //infinite loop
     switch (stage) {
@@ -128,11 +130,29 @@ task main() {
 }</div>
         </div>
       </div>
+      <div class = 'panel panel-default'>
+        <div class = 'panel-heading bold'>The Moron Test</div>
+        <div class = 'panel-body'>
+          <p>
+            We often try to run a program and forget that the battery is off. This code makes it painfully obvious.
+          </p>
+          <div id = 'editor3' style = 'height:141px'>task main() {
+  if (externalBattery == -1) { //if the battery is off
+    for (int i = 0; i < 25; i++) { //play a beep noise 25 times
+      PlaySound(soundException);
+      while (bSoundActive);
+    }
+    StopAllTasks(); //optional - use this to prevent the program from continuing if it would normally start running immediately
+  }
+}</div>
+        </div>
+      </div>
     </div>
     <script>
       var editors = [];
       editors.push(ace.edit('editor1'));
       editors.push(ace.edit('editor2'));
+      editors.push(ace.edit('editor3'));
       for (var i = 0; i < editors.length; i++) {
         editors[i].getSession().setMode('ace/mode/c_cpp');
         editors[i].setReadOnly(true);
