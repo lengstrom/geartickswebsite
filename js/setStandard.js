@@ -7,19 +7,16 @@ var _standards = {
 };
 
 for (var i in _standards) {
-	console.log(_rootDir + _standards[i].url)
 	$.ajax({
 		url:_rootDir + _standards[i].url,
-		success:_pendBody,
+		success:function() {
+			if (_standards[i].position[0] == 'p') { //prepend 
+				$(_standards[i].position.substr(8)).prepend(d);
+			}
+			else { //append
+				$(_standards[i].position.substr(7)).append(d);
+			}
+		},
 		dataType:'html'
 	});
-}
-
-function _pendBody(d) {
-	if (_standards[i].position[0] == 'p') { //prepend 
-		$(_standards[i].position.substr(8)).prepend(d);
-	}
-	else { //append
-		$(_standards[i].position.substr(7)).append(d);
-	}
 }
