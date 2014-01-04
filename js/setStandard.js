@@ -9,7 +9,7 @@ var _standards = {
 for (var i in _standards) {
 	$.ajax({
 		url:_rootDir + _standards[i].url,
-		success:function() {
+		success:function(d) {
 			if (_standards[i].position[0] == 'p') { //prepend 
 				$(_standards[i].position.substr(8)).prepend(d);
 			}
