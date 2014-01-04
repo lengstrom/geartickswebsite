@@ -10,13 +10,18 @@ for (var i in _standards) {
 	$.ajax({
 		url:_rootDir + _standards[i].url,
 		success:function(d) {
-			if (_standards[i].position[0] == 'p') { //prepend 
-				$(_standards[i].position.substr(8)).prepend(d);
-			}
-			else { //append
-				$(_standards[i].position.substr(7)).append(d);
-			}
+			debugger;
+			_pend(d);
 		},
 		dataType:'html'
 	});
+}
+
+function _pend(d) {
+	if (_standards[i].position[0] == 'p') { //prepend 
+		$(_standards[i].position.substr(8)).prepend(d);
+	}
+	else { //append
+		$(_standards[i].position.substr(7)).append(d);
+	}
 }
