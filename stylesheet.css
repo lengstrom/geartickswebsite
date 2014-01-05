@@ -19,6 +19,6 @@ img#logo {
   margin-top:5px;
   margin-right:5px;
 }
-::selection {
+nav::selection {
   background-color:transparent;
 }
