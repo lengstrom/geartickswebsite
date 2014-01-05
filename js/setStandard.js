@@ -1,4 +1,4 @@
-var _rootDir = '/standard/';
+var _rootDir = '/geartickswebsite/standard/';
 var _standards = {
 	'navbar':{
 		position:'prepend body', //either prepend or append, then the element you want to put it in 
