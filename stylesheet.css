@@ -1,4 +1,4 @@
-nav.navbar-default ul.navbar-nav>li:hover {
+nav.navbar-default ul.navbar-nav.navbar-left>li:hover {
   background:#E7E7E7;
 }
 div#body {
