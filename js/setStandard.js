@@ -11,17 +11,14 @@ for (var i in _standards) {
 		url:_rootDir + _standards[i].url,
 		success:function(d) {
 			debugger;
-			_pend(d);
+			if (_standards[i].position[0] == 'p') { //prepend 
+				$(_standards[i].position.substr(8)).prepend(d);
+			}
+			else { //append
+				$(_standards[i].position.substr(7)).append(d);
+			}
 		},
-		dataType:'html'
+		dataType:'html',
+		i:i
 	});
-}
-
-function _pend(d) {
-	if (_standards[i].position[0] == 'p') { //prepend 
-		$(_standards[i].position.substr(8)).prepend(d);
-	}
-	else { //append
-		$(_standards[i].position.substr(7)).append(d);
-	}
 }
