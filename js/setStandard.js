@@ -11,11 +11,11 @@ for (var i in _standards) {
 		url:_rootDir + _standards[i].url,
 		success:function(d) {
 			debugger;
-			if (_standards[i].position[0] == 'p') { //prepend 
-				$(_standards[i].position.substr(8)).prepend(d);
+			if (_standards[this.i].position[0] == 'p') { //prepend 
+				$(_standards[this.i].position.substr(8)).prepend(d);
 			}
 			else { //append
-				$(_standards[i].position.substr(7)).append(d);
+				$(_standards[this.i].position.substr(7)).append(d);
 			}
 		},
 		dataType:'html',
