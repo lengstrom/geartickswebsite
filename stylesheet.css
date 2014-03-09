@@ -1,10 +1,11 @@
-
 div#body {
   position:absolute;
-  top:70px;
-  left:10px;
-  right:10px;
-  bottom:0px;}
+  top:50px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  padding:10px;
+}
 .bold {
   font-weight:700;
 }
