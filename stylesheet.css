@@ -6,6 +6,16 @@ div#body {
   bottom:0px;
   padding:10px;
 }
+div#header {
+  position:absolute;
+  top:50px;
+  left:0px;
+  right:0px;
+  height:250px;
+  background-image:url(FTC-logo-inverted.png);
+  background-repeat:no-repeat;
+  background-position:center;
+}
 .bold {
   font-weight:700;
 }
