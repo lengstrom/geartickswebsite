@@ -6,8 +6,8 @@ div#body {
   bottom:0px;
   background-image:url(FTC-logo-inverted.png);
   background-repeat:no-repeat;
-  background-position:30px;
-  margin:10px;
+  background-position:center;
+  padding:10px;
 }
 .bold {
   font-weight:700;
