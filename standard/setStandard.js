@@ -28,7 +28,7 @@ for (var i in _standards) {
 				}
 				if (_standards[this.i].events) {
 					for (var j = 0; j < _standards[this.i].events.length; j++) {
-						$(_standards[this.i].events[i].selector).on(_standards[this.i].events[i].eventname, _standards[this.i].events[i].run);
+						$(_standards[this.i].events[j].selector).on(_standards[this.i].events[j].eventname, _standards[this.i].events[j].run);
 					}
 				}
 			}
