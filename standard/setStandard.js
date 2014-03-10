@@ -9,7 +9,7 @@ var _standards = {
 				eventname: 'load',
 				run: function(event) {
 					console.log(event);
-					event['target'].css('opacity', '1');
+					$(event['target']).css('opacity', '1');
 				}
 			}
 		]
