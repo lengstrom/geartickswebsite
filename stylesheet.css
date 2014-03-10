@@ -22,6 +22,10 @@ div#header>img {
   opacity:0;
   transition:opacity 0.3s linear;
 }
+div#title>h1 {
+  line-height:200px;
+  padding-left:40px;
+}
 .bold {
   font-weight:700;
 }

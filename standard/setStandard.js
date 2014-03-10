@@ -26,9 +26,9 @@ for (var i in _standards) {
 				else { //append
 					$(_standards[this.i].position.substr(7)).append(d);
 				}
-				if (standards[this.i].events) {
-					for (var j = 0; j < standards[this.i].events.length; j++) {
-						$(standards[this.i].events[i].selector).on(standards[this.i].events[i].eventname, standards[this.i].events[i].run);
+				if (_standards[this.i].events) {
+					for (var j = 0; j < _standards[this.i].events.length; j++) {
+						$(_standards[this.i].events[i].selector).on(_standards[this.i].events[i].eventname, _standards[this.i].events[i].run);
 					}
 				}
 			}
