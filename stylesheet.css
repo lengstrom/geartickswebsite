@@ -33,3 +33,7 @@ img#logo {
 nav::selection {
   background-color:transparent;
 }
+iframe#promote, iframe#state {
+  width:100%;
+  min-height:500px;
+}
