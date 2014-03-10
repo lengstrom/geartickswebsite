@@ -8,7 +8,7 @@ var _standards = {
 				selector: '#header>img',
 				eventname: 'load',
 				run: function(event) {
-					console.log(event);
+					event.target.css('opacity', '1');
 				}
 			}
 		]
