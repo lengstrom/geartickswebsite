@@ -16,9 +16,9 @@ div#header {
 }
 div#header>img {
   position:absolute;
-  top:0px;
+  top:-551px;
   left:50%;
-  padding-left:-598px;
+  margin-left:-598px;
 }
 .bold {
   font-weight:700;
