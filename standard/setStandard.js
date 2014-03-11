@@ -8,6 +8,7 @@ var _standards = {
 				selector: '#header>img',
 				eventname: 'load',
 				run: function(event) {
+					debugger;
 					console.log(event);
 					$(event['target']).css('opacity', '1');
 				}
@@ -32,7 +33,7 @@ for (var i in _standards) {
 						$(_standards[this.i].events[j].selector).on(_standards[this.i].events[j].eventname, _standards[this.i].events[j].run);
 					}
 				}
-			}
+			};
 		}()),
 		dataType: 'html',
 		i: i
