@@ -9,6 +9,26 @@
 		<script type = 'text/javascript' src = './js/jquery-2.0.3.min.js'></script>
 		<script type = 'text/javascript' src = './js/bootstrap.min.js'></script>
 		<script type = 'text/javascript' src = './standard/setStandard.js'></script>
+		<script>
+			window.onload = function() {
+				$.ajax({
+					url: 'news.json',
+					dataType: 'json',
+					success: (function() {
+						return function(server_response) {
+							var article = server_response.articles[0];
+							var panel = $('<div>').addClass('panel panel-default').append($('<div>').addClass('panel-heading').append($('<h4>').addClass('panel-title').text(article.title + ' (' + article.date + ')')));
+							var body = $('<div>').addClass('panel-body');
+							for (var i = 0; i < article.contents.length; i++) {
+								body.append($('<p>').text(article.contents[i]));
+							}
+							panel.append(body);
+							$('#updates').append(panel);
+						}
+					}())
+				});
+			}
+		</script>
 	</head>
 	<body style = 'overflow-x:hidden;overflow-y:scroll;'>
 		<div id = 'title'><h1>FTC 6055 Gearticks</h1></div>
@@ -43,8 +63,7 @@
 							<div class = 'panel-heading'>
 								<h3 class = 'panel-title'>Updates</h3>
 							</div>
-							<div class = 'panel-body'>
-								UPDATES GO HERE
+							<div class = 'panel-body' id = 'updates'>
 							</div>
 						</div>
 						<div class = 'panel panel-default'>
