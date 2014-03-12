@@ -9,6 +9,13 @@
 		<script type = 'text/javascript' src = 'js/jquery-2.0.3.min.js'></script>
 		<script type = 'text/javascript' src = 'js/bootstrap.min.js'></script>
 		<script type = 'text/javascript' src = 'standard/setStandard.js'></script>
+		<script>
+			window.onload = function() {
+				$('#state').load(function() {
+					$("input[name='password']").val('6055party');
+				});
+			};
+		</script>
 		<style>
 			div#header {
 				display:none;
