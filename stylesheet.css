@@ -39,8 +39,9 @@ nav::selection {
   background-color:transparent;
 }
 iframe#promote, iframe#state {
+  top:0px;
   width:100%;
-  min-height:500px;
+  bottom:100px;
 }
 .carousel-control.left, .carousel-control.right {
   background-image: none
