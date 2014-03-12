@@ -137,7 +137,7 @@ task main() {
 						<p>
 							To move our motors to a certain encoder position, we use a proportional movement function, which means the motor moves faster the farther away it is from its target, slowing down until is is an acceptable range.
 						</p>
-						<div id = 'editor4' style = 'height:197px'>int moveMotor(int movetarget, int range, int divisor, int minspeed, int encoderVal) {
+						<div id = 'editor4' style = 'height:211px'>int moveMotor(int movetarget, int range, int divisor, int minspeed, int encoderVal) {
 	int encoderdiff = movetarget - encoderVal;
 	if (abs(encoderdiff) > range) {
 		return encoderdiff / divisor + minspeed * sgn(encoderdiff);
