@@ -58,7 +58,7 @@
 						<p>
 							Our robot, which uses a holonomic drive system, has a gyroscopic sensor so we can adjust the robot's movements to the driver's perspective.
 						</p>
-						<div id = 'editor1' style = 'height:295px'>#pragma config(Sensor, S1,     gyroSen,        sensorI2CCustom) //set up the gyro sensor
+						<div id = 'editor1' style = 'height:297px' class = 'editor'>#pragma config(Sensor, S1,     gyroSen,        sensorI2CCustom) //set up the gyro sensor
 
 #include "drivers/hitechnic-gyro.h" //Xander's gyro sensor driver
 
@@ -88,7 +88,7 @@ task main() {
 							Our autonomous program uses a switch-case structure inside an infinite loop.
 							The first autonomous program we made was linear and used waits, but we quickly realized that it was important to be able to continuously update the power going to the driver motors and we also wanted the ability to datalog at every part of the program.
 						</p>
-						<div id = 'editor2' style = 'height:351px'>task main() {
+						<div id = 'editor2' style = 'height:337px' class = 'editor'>task main() {
 	int stage = 0; //variable to keep track of the current step of the program
 	while (true) { //infinite loop
 		switch (stage) {
@@ -120,7 +120,7 @@ task main() {
 						<p>
 							We often try to run a program and forget that the battery is off. This code makes it painfully obvious.
 						</p>
-						<div id = 'editor3' style = 'height:141px'>task main() {
+						<div id = 'editor3' style = 'height:127px' class = 'editor'>task main() {
 	if (externalBattery == -1) { //if the battery is off
 		for (int i = 0; i < 25; i++) { //play a beep noise 25 times
 			PlaySound(soundException);
@@ -137,7 +137,7 @@ task main() {
 						<p>
 							To move our motors to a certain encoder position, we use a proportional movement function, which means the motor moves faster the farther away it is from its target, slowing down until is is an acceptable range.
 						</p>
-						<div id = 'editor4' style = 'height:211px'>int moveMotor(int movetarget, int range, int divisor, int minspeed, int encoderVal) {
+						<div id = 'editor4' style = 'height:213px' class = 'editor'>int moveMotor(int movetarget, int range, int divisor, int minspeed, int encoderVal) {
 	int encoderdiff = movetarget - encoderVal;
 	if (abs(encoderdiff) > range) {
 		return encoderdiff / divisor + minspeed * sgn(encoderdiff);
