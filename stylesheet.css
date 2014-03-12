@@ -41,6 +41,10 @@ img#logo {
 nav::selection {
   background-color:transparent;
 }
+div.carousel-inner>div.item>div.panel {
+  max-height:100%;
+  overflow-y:scroll;
+}
 iframe#promote, iframe#state {
   width:100%;
   min-height:70%;
