@@ -115,7 +115,7 @@ task main() {
 					</div>
 				</div>
 				<div class = 'panel panel-default'>
-					<div class = 'panel-heading bold'>The Moron Test</div>
+					<div class = 'panel-heading bold'>Battery Alert</div>
 					<div class = 'panel-body'>
 						<p>
 							We often try to run a program and forget that the battery is off. This code makes it painfully obvious.
@@ -131,6 +131,27 @@ task main() {
 }</div>
 					</div>
 				</div>
+				<div class = 'panel panel-default'>
+					<div class = 'panel-heading bold'>Proportional Motor Control</div>
+					<div class = 'panel-body'>
+						<p>
+							To move our motors to a certain encoder position, we use a proportional movement function, which means the motor moves faster the farther away it is from its target, slowing down until is is an acceptable range.
+						</p>
+						<div id = 'editor4'>int moveMotor(int movetarget, int range, int divisor, int minspeed, int encoderVal) {
+	int encoderdiff = movetarget - encoderVal;
+	if (abs(encoderdiff) > range) {
+		return encoderdiff / divisor + minspeed * sgn(encoderdiff);
+	}
+	else return 0;
+}
+
+task main() {
+	while (true) { //drive loop
+		armpower = moveMotor(armtarg, 100, 10, 30, armencoder); //calculate the power to move the arm to within 100 encoder ticks of its target, at a minimum speed of 30, with one unit more power for every 10 encoder ticks we are off
+		motor[arm] = armpower; //set the power
+	}
+}</div>
+				</div>
 			</div>
 		</div>
 		<script>
@@ -138,6 +159,7 @@ task main() {
 			editors.push(ace.edit('editor1'));
 			editors.push(ace.edit('editor2'));
 			editors.push(ace.edit('editor3'));
+			editors.push(ace.edit('editor4'));
 			for (var i = 0; i < editors.length; i++) {
 				editors[i].getSession().setMode('ace/mode/c_cpp');
 				editors[i].setReadOnly(true);
