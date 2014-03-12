@@ -20,10 +20,15 @@
 				});​
 			};
 		</script>
+		<style>
+			div#header {
+				display:none;
+			}
+		</style>
 	</head>
 	<body>
-		<div id = 'body'>
-			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+		<div id = 'body' class = 'no-header'>
+			<div class="carousel slide" data-ride="carousel" data-interval = 'false'>
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
 					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>

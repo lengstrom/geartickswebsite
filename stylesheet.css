@@ -6,6 +6,9 @@ div#body {
   bottom:0px;
   padding:10px;
 }
+div#body.no-header {
+  top:50px;
+}
 div#header {
   position:absolute;
   top:50px;
