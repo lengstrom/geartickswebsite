@@ -46,7 +46,7 @@ nav::selection {
 }
 div.carousel-inner>div.item>div.panel>div.panel-body {
   max-height:100%;
-  overflow-y:scroll;
+  overflow-y:auto;
 }
 iframe#promote, iframe#state {
   width:100%;
