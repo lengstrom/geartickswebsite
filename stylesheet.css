@@ -41,7 +41,10 @@ img#logo {
 nav::selection {
   background-color:transparent;
 }
-div.carousel-inner>div.item>div.panel {
+.no-overflow {
+  overflow:hidden;
+}
+div.carousel-inner>div.item>div.panel>div.panel-body {
   max-height:100%;
   overflow-y:scroll;
 }
@@ -57,7 +60,4 @@ div#video-carousel {
 .carousel-control.left, .carousel-control.right {
   background-image:none;
   color:black;
-}
-.no-overflow {
-  overflow:hidden;
 }
