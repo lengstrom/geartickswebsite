@@ -49,6 +49,15 @@ iframe#promote, iframe#state {
   width:100%;
   min-height:70%;
 }
+div#video-carousel {
+  position:absolute;
+  left:200px;
+  right:200px;
+}
 .carousel-control.left, .carousel-control.right {
-  background-image:none
+  background-image:none;
+  color:black;
+}
+.no-overflow {
+  overflow:hidden;
 }
