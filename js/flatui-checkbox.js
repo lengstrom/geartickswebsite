@@ -5,108 +5,108 @@
 !function ($) {
 
  /* CHECKBOX PUBLIC CLASS DEFINITION
-  * ============================== */
+t* ============================== */
 
-  var Checkbox = function (element, options) {
-    this.init(element, options);
-  }
+tvar Checkbox = function (element, options) {
+ttthis.init(element, options);
+t}
 
-  Checkbox.prototype = {
-    
-    constructor: Checkbox
-    
-  , init: function (element, options) {      
-    var $el = this.$element = $(element)
-    
-    this.options = $.extend({}, $.fn.checkbox.defaults, options);      
-    $el.before(this.options.template);    
-    this.setState(); 
-  }  
-   
-  , setState: function () {    
-      var $el = this.$element
-        , $parent = $el.closest('.checkbox');
-        
-        $el.prop('disabled') && $parent.addClass('disabled');   
-        $el.prop('checked') && $parent.addClass('checked');
-    }  
-    
-  , toggle: function () {    
-      var ch = 'checked'
-        , $el = this.$element
-        , $parent = $el.closest('.checkbox')
-        , checked = $el.prop(ch)
-        , e = $.Event('toggle')
-      
-      if ($el.prop('disabled') == false) {
-        $parent.toggleClass(ch) && checked ? $el.removeAttr(ch) : $el.prop(ch, ch);
-        $el.trigger(e).trigger('change'); 
-      }
-    }  
-    
-  , setCheck: function (option) {    
-      var d = 'disabled'
-        , ch = 'checked'
-        , $el = this.$element
-        , $parent = $el.closest('.checkbox')
-        , checkAction = option == 'check' ? true : false
-        , e = $.Event(option)
-      
-      $parent[checkAction ? 'addClass' : 'removeClass' ](ch) && checkAction ? $el.prop(ch, ch) : $el.removeAttr(ch);
-      $el.trigger(e).trigger('change');       
-    }  
-      
-  }
+tCheckbox.prototype = {
+tt
+ttconstructor: Checkbox
+tt
+t, init: function (element, options) {ttt
+ttvar $el = this.$element = $(element)
+tt
+ttthis.options = $.extend({}, $.fn.checkbox.defaults, options);ttt
+tt$el.before(this.options.template);tt
+ttthis.setState(); 
+t}t
+t 
+t, setState: function () {tt
+tttvar $el = this.$element
+tttt, $parent = $el.closest('.checkbox');
+tttt
+tttt$el.prop('disabled') && $parent.addClass('disabled');t 
+tttt$el.prop('checked') && $parent.addClass('checked');
+tt}t
+tt
+t, toggle: function () {tt
+tttvar ch = 'checked'
+tttt, $el = this.$element
+tttt, $parent = $el.closest('.checkbox')
+tttt, checked = $el.prop(ch)
+tttt, e = $.Event('toggle')
+ttt
+tttif ($el.prop('disabled') == false) {
+tttt$parent.toggleClass(ch) && checked ? $el.removeAttr(ch) : $el.prop(ch, ch);
+tttt$el.trigger(e).trigger('change'); 
+ttt}
+tt}t
+tt
+t, setCheck: function (option) {tt
+tttvar d = 'disabled'
+tttt, ch = 'checked'
+tttt, $el = this.$element
+tttt, $parent = $el.closest('.checkbox')
+tttt, checkAction = option == 'check' ? true : false
+tttt, e = $.Event(option)
+ttt
+ttt$parent[checkAction ? 'addClass' : 'removeClass' ](ch) && checkAction ? $el.prop(ch, ch) : $el.removeAttr(ch);
+ttt$el.trigger(e).trigger('change');ttt 
+tt}t
+ttt
+t}
 
 
  /* CHECKBOX PLUGIN DEFINITION
-  * ======================== */
+t* ======================== */
 
-  var old = $.fn.checkbox
+tvar old = $.fn.checkbox
 
-  $.fn.checkbox = function (option) {
-    return this.each(function () {
-      var $this = $(this)
-        , data = $this.data('checkbox')
-        , options = $.extend({}, $.fn.checkbox.defaults, $this.data(), typeof option == 'object' && option);
-      if (!data) $this.data('checkbox', (data = new Checkbox(this, options)));
-      if (option == 'toggle') data.toggle()
-      if (option == 'check' || option == 'uncheck') data.setCheck(option)
-      else if (option) data.setState(); 
-    });
-  }
-  
-  $.fn.checkbox.defaults = {
-    template: '<span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span>'
-  }
+t$.fn.checkbox = function (option) {
+ttreturn this.each(function () {
+tttvar $this = $(this)
+tttt, data = $this.data('checkbox')
+tttt, options = $.extend({}, $.fn.checkbox.defaults, $this.data(), typeof option == 'object' && option);
+tttif (!data) $this.data('checkbox', (data = new Checkbox(this, options)));
+tttif (option == 'toggle') data.toggle()
+tttif (option == 'check' || option == 'uncheck') data.setCheck(option)
+tttelse if (option) data.setState(); 
+tt});
+t}
+t
+t$.fn.checkbox.defaults = {
+tttemplate: '<span class="icons"><span class="first-icon fui-checkbox-unchecked"></span><span class="second-icon fui-checkbox-checked"></span></span>'
+t}
 
 
  /* CHECKBOX NO CONFLICT
-  * ================== */
+t* ================== */
 
-  $.fn.checkbox.noConflict = function () {
-    $.fn.checkbox = old;
-    return this;
-  }
+t$.fn.checkbox.noConflict = function () {
+tt$.fn.checkbox = old;
+ttreturn this;
+t}
 
 
  /* CHECKBOX DATA-API
-  * =============== */
+t* =============== */
 
-  $(document).on('click.checkbox.data-api', '[data-toggle^=checkbox], .checkbox', function (e) {
-    var $checkbox = $(e.target);
-    if (e.target.tagName != "A") {      
-      e && e.preventDefault() && e.stopPropagation();
-      if (!$checkbox.hasClass('checkbox')) $checkbox = $checkbox.closest('.checkbox');
-      $checkbox.find(':checkbox').checkbox('toggle');
-    }
-  });
-  
-  $(function () {
-    $('[data-toggle="checkbox"]').each(function () {
-      var $checkbox = $(this);
-      $checkbox.checkbox();
-    });
-  });
+t$(document).on('click.checkbox.data-api', '[data-toggle^=checkbox], .checkbox', function (e) {
+ttvar $checkbox = $(e.target);
+ttif (e.target.tagName != "A") {ttt
+ttte && e.preventDefault() && e.stopPropagation();
+tttif (!$checkbox.hasClass('checkbox')) $checkbox = $checkbox.closest('.checkbox');
+ttt$checkbox.find(':checkbox').checkbox('toggle');
+tt}
+t});
+t
+t$(function () {
+tt$('[data-toggle="checkbox"]').each(function () {
+tttvar $checkbox = $(this);
+ttt$checkbox.checkbox();
+tt});
+t});
 
 }(window.jQuery);

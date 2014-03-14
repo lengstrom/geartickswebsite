@@ -19,60 +19,60 @@
 	var delimiter = new Array();
 	var tags_callbacks = new Array();
 	$.fn.doAutosize = function(o){
-	    var minWidth = $(this).data('minwidth'),
-	        maxWidth = $(this).data('maxwidth'),
-	        val = '',
-	        input = $(this),
-	        testSubject = $('#'+$(this).data('tester_id'));
+	ttvar minWidth = $(this).data('minwidth'),
+	ttttmaxWidth = $(this).data('maxwidth'),
+	ttttval = '',
+	ttttinput = $(this),
+	tttttestSubject = $('#'+$(this).data('tester_id'));
 	
-	    if (val === (val = input.val())) {return;}
+	ttif (val === (val = input.val())) {return;}
 	
-	    // Enter new content into testSubject
-	    var escaped = val.replace(/&/g, '&amp;').replace(/\s/g,' ').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-	    testSubject.html(escaped);
-	    // Calculate new width + whether to change
-	    var testerWidth = testSubject.width(),
-	        newWidth = (testerWidth + o.comfortZone) >= minWidth ? testerWidth + o.comfortZone : minWidth,
-	        currentWidth = input.width(),
-	        isValidWidthChange = (newWidth < currentWidth && newWidth >= minWidth)
-	                             || (newWidth > minWidth && newWidth < maxWidth);
+	tt// Enter new content into testSubject
+	ttvar escaped = val.replace(/&/g, '&amp;').replace(/\s/g,' ').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	tttestSubject.html(escaped);
+	tt// Calculate new width + whether to change
+	ttvar testerWidth = testSubject.width(),
+	ttttnewWidth = (testerWidth + o.comfortZone) >= minWidth ? testerWidth + o.comfortZone : minWidth,
+	ttttcurrentWidth = input.width(),
+	ttttisValidWidthChange = (newWidth < currentWidth && newWidth >= minWidth)
+	tttttttttttttt || (newWidth > minWidth && newWidth < maxWidth);
 	
-	    // Animate width
-	    if (isValidWidthChange) {
-	        input.width(newWidth);
-	    }
+	tt// Animate width
+	ttif (isValidWidthChange) {
+	ttttinput.width(newWidth);
+	tt}
 
 
-  };
-  $.fn.resetAutosize = function(options){
-    // alert(JSON.stringify(options));
-    var minWidth =  $(this).data('minwidth') || options.minInputWidth || $(this).width(),
-        maxWidth = $(this).data('maxwidth') || options.maxInputWidth || ($(this).closest('.tagsinput').width() - options.inputPadding),
-        val = '',
-        input = $(this),
-        testSubject = $('<tester/>').css({
-            position: 'absolute',
-            top: -9999,
-            left: -9999,
-            width: 'auto',
-            fontSize: input.css('fontSize'),
-            fontFamily: input.css('fontFamily'),
-            fontWeight: input.css('fontWeight'),
-            letterSpacing: input.css('letterSpacing'),
-            whiteSpace: 'nowrap'
-        }),
-        testerId = $(this).attr('id')+'_autosize_tester';
-    if(! $('#'+testerId).length > 0){
-      testSubject.attr('id', testerId);
-      testSubject.appendTo('body');
-    }
+t};
+t$.fn.resetAutosize = function(options){
+tt// alert(JSON.stringify(options));
+ttvar minWidth =t$(this).data('minwidth') || options.minInputWidth || $(this).width(),
+ttttmaxWidth = $(this).data('maxwidth') || options.maxInputWidth || ($(this).closest('.tagsinput').width() - options.inputPadding),
+ttttval = '',
+ttttinput = $(this),
+tttttestSubject = $('<tester/>').css({
+ttttttposition: 'absolute',
+tttttttop: -9999,
+ttttttleft: -9999,
+ttttttwidth: 'auto',
+ttttttfontSize: input.css('fontSize'),
+ttttttfontFamily: input.css('fontFamily'),
+ttttttfontWeight: input.css('fontWeight'),
+ttttttletterSpacing: input.css('letterSpacing'),
+ttttttwhiteSpace: 'nowrap'
+tttt}),
+tttttesterId = $(this).attr('id')+'_autosize_tester';
+ttif(! $('#'+testerId).length > 0){
+ttttestSubject.attr('id', testerId);
+ttttestSubject.appendTo('body');
+tt}
 
-    input.data('minwidth', minWidth);
-    input.data('maxwidth', maxWidth);
-    input.data('tester_id', testerId);
-    input.css('width', minWidth);
-  };
-  
+ttinput.data('minwidth', minWidth);
+ttinput.data('maxwidth', maxWidth);
+ttinput.data('tester_id', testerId);
+ttinput.css('width', minWidth);
+t};
+t
 	$.fn.addTag = function(value,options) {
 			options = jQuery.extend({focus:false,callback:true},options);
 			this.each(function() { 
@@ -88,24 +88,24 @@
 				if (options.unique) {
 					var skipTag = $(this).tagExist(value);
 					if(skipTag == true) {
-					    //Marks fake input as not_valid to let styling it
-    				    $('#'+id+'_tag').addClass('not_valid');
-    				}
+					tt//Marks fake input as not_valid to let styling it
+tt				tt$('#'+id+'_tag').addClass('not_valid');
+tt				}
 				} else {
 					var skipTag = false; 
 				}
 				
 				if (value !='' && skipTag != true) { 
-                    $('<span>').addClass('tag').append(
-                        $('<span>').text(value).append('&nbsp;&nbsp;'),
-                        $('<a class="tagsinput-remove-link">', {
-                            href  : '#',
-                            title : 'Remove tag',
-                            text  : ''
-                        }).click(function () {
-                            return $('#' + id).removeTag(escape(value));
-                        })
-                    ).insertBefore('#' + id + '_addTag');
+tttttttttt$('<span>').addClass('tag').append(
+tttttttttttt$('<span>').text(value).append('&nbsp;&nbsp;'),
+tttttttttttt$('<a class="tagsinput-remove-link">', {
+tttttttttttttthreft: '#',
+tttttttttttttttitle : 'Remove tag',
+tttttttttttttttextt: ''
+tttttttttttt}).click(function () {
+ttttttttttttttreturn $('#' + id).removeTag(escape(value));
+tttttttttttt})
+tttttttttt).insertBefore('#' + id + '_addTag');
 
 					tagslist.push(value);
 				
@@ -169,28 +169,28 @@
 	
 	// clear all existing tags and import new ones from a string
 	$.fn.importTags = function(str) {
-                id = $(this).attr('id');
+ttttttttid = $(this).attr('id');
 		$('#'+id+'_tagsinput .tag').remove();
 		$.fn.tagsInput.importTags(this,str);
 	}
 		
 	$.fn.tagsInput = function(options) { 
-    var settings = jQuery.extend({
-      interactive:true,
-      defaultText:'',
-      minChars:0,
-      width:'',
-      height:'',
-      autocomplete: {selectFirst: false },
-      'hide':true,
-      'delimiter':',',
-      'unique':true,
-      removeWithBackspace:true,
-      placeholderColor:'#666666',
-      autosize: true,
-      comfortZone: 20,
-      inputPadding: 6*2
-    },options);
+ttvar settings = jQuery.extend({
+tttinteractive:true,
+tttdefaultText:'',
+tttminChars:0,
+tttwidth:'',
+tttheight:'',
+tttautocomplete: {selectFirst: false },
+ttt'hide':true,
+ttt'delimiter':',',
+ttt'unique':true,
+tttremoveWithBackspace:true,
+tttplaceholderColor:'#666666',
+tttautosize: true,
+tttcomfortZone: 20,
+tttinputPadding: 6*2
+tt},options);
 
 		this.each(function() { 
 			if (settings.hide) { 
@@ -218,7 +218,7 @@
 				tags_callbacks[id]['onChange'] = settings.onChange;
 			}
 	
-            var containerClass = $('#'+id).attr('class').replace('tagsinput', '');
+ttttttvar containerClass = $('#'+id).attr('class').replace('tagsinput', '');
 			var markup = '<div id="'+id+'_tagsinput" class="tagsinput '+containerClass+'"><div class="tagsinput-add-container" id="'+id+'_addTag"><div class="tagsinput-add"></div>';
 			
 			if (settings.interactive) {
@@ -239,7 +239,7 @@
 			if (settings.interactive) { 
 				$(data.fake_input).val($(data.fake_input).attr('data-default'));
 				$(data.fake_input).css('color',settings.placeholderColor);
-		        $(data.fake_input).resetAutosize(settings);
+		tttt$(data.fake_input).resetAutosize(settings);
 		
 				$(data.holder).bind('click',data,function(event) {
 					$(event.data.fake_input).focus();
@@ -264,7 +264,7 @@
 							if (data) {
 								$('#'+id).addTag(data[0] + "",{focus:true,unique:(settings.unique)});
 							}
-					  	});
+					t	});
 					} else if (jQuery.ui.autocomplete !== undefined) {
 						$(data.fake_input).autocomplete(autocomplete_options);
 						$(data.fake_input).bind('autocompleteselect',data,function(event,ui) {
@@ -293,15 +293,15 @@
 				// if user types a comma, create a new tag
 				$(data.fake_input).bind('keypress',data,function(event) {
 					if (event.which==event.data.delimiter.charCodeAt(0) || event.which==13 ) {
-					    event.preventDefault();
+					ttevent.preventDefault();
 						if( (event.data.minChars <= $(event.data.fake_input).val().length) && (!event.data.maxChars || (event.data.maxChars >= $(event.data.fake_input).val().length)) )
 							$(event.data.real_input).addTag($(event.data.fake_input).val(),{focus:true,unique:(settings.unique)});
-					  	$(event.data.fake_input).resetAutosize(settings);
+					t	$(event.data.fake_input).resetAutosize(settings);
 						return false;
 					} else if (event.data.autosize) {
-			            $(event.data.fake_input).doAutosize(settings);
-            
-          			}
+			tttttt$(event.data.fake_input).doAutosize(settings);
+tttttt
+ttttt			}
 				});
 				//Delete last tag on backspace
 				data.removeWithBackspace && $(data.fake_input).bind('keydown', function(event)
@@ -320,11 +320,11 @@
 				
 				//Removes the not_valid class when user changes the value of the fake input
 				if(data.unique) {
-				    $(data.fake_input).keydown(function(event){
-				        if(event.keyCode == 8 || String.fromCharCode(event.which).match(/\w+|[áéíóúÁÉÍÓÚñÑ,/]+/)) {
-				            $(this).removeClass('not_valid');
-				        }
-				    });
+				tt$(data.fake_input).keydown(function(event){
+				ttttif(event.keyCode == 8 || String.fromCharCode(event.which).match(/\w+|[áéíóúÁÉÍÓÚñÑ,/]+/)) {
+				tttttt$(this).removeClass('not_valid');
+				tttt}
+				tt});
 				}
 			} // if settings.interactive
 		});
