@@ -7,245 +7,245 @@
  * ============================================================ */
 
 !function ($) {
-  "use strict";
+t"use strict";
 
-  $.fn['bootstrapSwitch'] = function (method) {
-    var methods = {
-      init: function () {
-        return this.each(function () {
-            var $element = $(this)
-              , $div
-              , $switchLeft
-              , $switchRight
-              , $label
-              , myClasses = ""
-              , classes = $element.attr('class')
-              , color
-              , moving
-              , onLabel = "ON"
-              , offLabel = "OFF"
-              , icon = false;
+t$.fn['bootstrapSwitch'] = function (method) {
+ttvar methods = {
+tttinit: function () {
+ttttreturn this.each(function () {
+ttttttvar $element = $(this)
+ttttttt, $div
+ttttttt, $switchLeft
+ttttttt, $switchRight
+ttttttt, $label
+ttttttt, myClasses = ""
+ttttttt, classes = $element.attr('class')
+ttttttt, color
+ttttttt, moving
+ttttttt, onLabel = "ON"
+ttttttt, offLabel = "OFF"
+ttttttt, icon = false;
 
-            $.each(['switch-mini', 'switch-small', 'switch-large'], function (i, el) {
-              if (classes.indexOf(el) >= 0)
-                myClasses = el;
-            });
+tttttt$.each(['switch-mini', 'switch-small', 'switch-large'], function (i, el) {
+tttttttif (classes.indexOf(el) >= 0)
+ttttttttmyClasses = el;
+tttttt});
 
-            $element.addClass('has-switch');
+tttttt$element.addClass('has-switch');
 
-            if ($element.data('on') !== undefined)
-              color = "switch-" + $element.data('on');
+ttttttif ($element.data('on') !== undefined)
+tttttttcolor = "switch-" + $element.data('on');
 
-            if ($element.data('on-label') !== undefined)
-              onLabel = $element.data('on-label');
+ttttttif ($element.data('on-label') !== undefined)
+tttttttonLabel = $element.data('on-label');
 
-            if ($element.data('off-label') !== undefined)
-              offLabel = $element.data('off-label');
+ttttttif ($element.data('off-label') !== undefined)
+tttttttoffLabel = $element.data('off-label');
 
-            if ($element.data('icon') !== undefined)
-              icon = $element.data('icon');
+ttttttif ($element.data('icon') !== undefined)
+ttttttticon = $element.data('icon');
 
-            $switchLeft = $('<span>')
-              .addClass("switch-left")
-              .addClass(myClasses)
-              .addClass(color)
-              .html(onLabel);
+tttttt$switchLeft = $('<span>')
+ttttttt.addClass("switch-left")
+ttttttt.addClass(myClasses)
+ttttttt.addClass(color)
+ttttttt.html(onLabel);
 
-            color = '';
-            if ($element.data('off') !== undefined)
-              color = "switch-" + $element.data('off');
+ttttttcolor = '';
+ttttttif ($element.data('off') !== undefined)
+tttttttcolor = "switch-" + $element.data('off');
 
-            $switchRight = $('<span>')
-              .addClass("switch-right")
-              .addClass(myClasses)
-              .addClass(color)
-              .html(offLabel);
+tttttt$switchRight = $('<span>')
+ttttttt.addClass("switch-right")
+ttttttt.addClass(myClasses)
+ttttttt.addClass(color)
+ttttttt.html(offLabel);
 
-            $label = $('<label>')
-              .html("&nbsp;")
-              .addClass(myClasses)
-              .attr('for', $element.find('input').attr('id'));
+tttttt$label = $('<label>')
+ttttttt.html("&nbsp;")
+ttttttt.addClass(myClasses)
+ttttttt.attr('for', $element.find('input').attr('id'));
 
-            if (icon) {
-              $label.html('<i class="' + icon + '"></i>');
-            }
+ttttttif (icon) {
+ttttttt$label.html('<i class="' + icon + '"></i>');
+tttttt}
 
-            $div = $element.find(':checkbox').wrap($('<div>')).parent().data('animated', false);
+tttttt$div = $element.find(':checkbox').wrap($('<div>')).parent().data('animated', false);
 
-            if ($element.data('animated') !== false)
-              $div.addClass('switch-animate').data('animated', true);
+ttttttif ($element.data('animated') !== false)
+ttttttt$div.addClass('switch-animate').data('animated', true);
 
-            $div
-              .append($switchLeft)
-              .append($label)
-              .append($switchRight);
+tttttt$div
+ttttttt.append($switchLeft)
+ttttttt.append($label)
+ttttttt.append($switchRight);
 
-            $element.find('>div').addClass(
-              $element.find('input').is(':checked') ? 'switch-on' : 'switch-off'
-            );
+tttttt$element.find('>div').addClass(
+ttttttt$element.find('input').is(':checked') ? 'switch-on' : 'switch-off'
+tttttt);
 
-            if ($element.find('input').is(':disabled'))
-              $(this).addClass('deactivate');
+ttttttif ($element.find('input').is(':disabled'))
+ttttttt$(this).addClass('deactivate');
 
-            var changeStatus = function ($this) {
-              $this.siblings('label').trigger('mousedown').trigger('mouseup').trigger('click');
-            };
+ttttttvar changeStatus = function ($this) {
+ttttttt$this.siblings('label').trigger('mousedown').trigger('mouseup').trigger('click');
+tttttt};
 
-            $element.on('keydown', function (e) {
-              if (e.keyCode === 32) {
-                e.stopImmediatePropagation();
-                e.preventDefault();
-                changeStatus($(e.target).find('span:first'));
-              }
-            });
+tttttt$element.on('keydown', function (e) {
+tttttttif (e.keyCode === 32) {
+tttttttte.stopImmediatePropagation();
+tttttttte.preventDefault();
+ttttttttchangeStatus($(e.target).find('span:first'));
+ttttttt}
+tttttt});
 
-            $switchLeft.on('click', function (e) {
-              changeStatus($(this));
-            });
+tttttt$switchLeft.on('click', function (e) {
+tttttttchangeStatus($(this));
+tttttt});
 
-            $switchRight.on('click', function (e) {
-              changeStatus($(this));
-            });
+tttttt$switchRight.on('click', function (e) {
+tttttttchangeStatus($(this));
+tttttt});
 
-            $element.find('input').on('change', function (e) {
-              var $this = $(this)
-                , $element = $this.parent()
-                , thisState = $this.is(':checked')
-                , state = $element.is('.switch-off');
+tttttt$element.find('input').on('change', function (e) {
+tttttttvar $this = $(this)
+tttttttt, $element = $this.parent()
+tttttttt, thisState = $this.is(':checked')
+tttttttt, state = $element.is('.switch-off');
 
-              e.preventDefault();
+ttttttte.preventDefault();
 
-              $element.css('left', '');
+ttttttt$element.css('left', '');
 
-              if (state === thisState) {
+tttttttif (state === thisState) {
 
-                if (thisState)
-                  $element.removeClass('switch-off').addClass('switch-on');
-                else $element.removeClass('switch-on').addClass('switch-off');
+ttttttttif (thisState)
+ttttttttt$element.removeClass('switch-off').addClass('switch-on');
+ttttttttelse $element.removeClass('switch-on').addClass('switch-off');
 
-                if ($element.data('animated') !== false)
-                  $element.addClass("switch-animate");
+ttttttttif ($element.data('animated') !== false)
+ttttttttt$element.addClass("switch-animate");
 
-                $element.parent().trigger('switch-change', {'el': $this, 'value': thisState})
-              }
-            });
+tttttttt$element.parent().trigger('switch-change', {'el': $this, 'value': thisState})
+ttttttt}
+tttttt});
 
-            $element.find('label').on('mousedown touchstart', function (e) {
-              var $this = $(this);
-              moving = false;
+tttttt$element.find('label').on('mousedown touchstart', function (e) {
+tttttttvar $this = $(this);
+tttttttmoving = false;
 
-              e.preventDefault();
-              e.stopImmediatePropagation();
+ttttttte.preventDefault();
+ttttttte.stopImmediatePropagation();
 
-              $this.closest('div').removeClass('switch-animate');
+ttttttt$this.closest('div').removeClass('switch-animate');
 
-              if ($this.closest('.has-switch').is('.deactivate'))
-                $this.unbind('click');
-              else {
-                $this.on('mousemove touchmove', function (e) {
-                  var $element = $(this).closest('.switch')
-                    , relativeX = (e.pageX || e.originalEvent.targetTouches[0].pageX) - $element.offset().left
-                    , percent = (relativeX / $element.width()) * 100
-                    , left = 25
-                    , right = 75;
+tttttttif ($this.closest('.has-switch').is('.deactivate'))
+tttttttt$this.unbind('click');
+tttttttelse {
+tttttttt$this.on('mousemove touchmove', function (e) {
+tttttttttvar $element = $(this).closest('.switch')
+tttttttttt, relativeX = (e.pageX || e.originalEvent.targetTouches[0].pageX) - $element.offset().left
+tttttttttt, percent = (relativeX / $element.width()) * 100
+tttttttttt, left = 25
+tttttttttt, right = 75;
 
-                  moving = true;
+tttttttttmoving = true;
 
-                  if (percent < left)
-                    percent = left;
-                  else if (percent > right)
-                    percent = right;
+tttttttttif (percent < left)
+ttttttttttpercent = left;
+tttttttttelse if (percent > right)
+ttttttttttpercent = right;
 
-                  $element.find('>div').css('left', (percent - right) + "%")
-                });
+ttttttttt$element.find('>div').css('left', (percent - right) + "%")
+tttttttt});
 
-                $this.on('click touchend', function (e) {
-                  var $this = $(this)
-                    , $target = $(e.target)
-                    , $myCheckBox = $target.siblings('input');
+tttttttt$this.on('click touchend', function (e) {
+tttttttttvar $this = $(this)
+tttttttttt, $target = $(e.target)
+tttttttttt, $myCheckBox = $target.siblings('input');
 
-                  e.stopImmediatePropagation();
-                  e.preventDefault();
+ttttttttte.stopImmediatePropagation();
+ttttttttte.preventDefault();
 
-                  $this.unbind('mouseleave');
+ttttttttt$this.unbind('mouseleave');
 
-                  if (moving)
-                    $myCheckBox.prop('checked', !(parseInt($this.parent().css('left')) < -25));
-                  else $myCheckBox.prop("checked", !$myCheckBox.is(":checked"));
+tttttttttif (moving)
+tttttttttt$myCheckBox.prop('checked', !(parseInt($this.parent().css('left')) < -25));
+tttttttttelse $myCheckBox.prop("checked", !$myCheckBox.is(":checked"));
 
-                  moving = false;
-                  $myCheckBox.trigger('change');
-                });
+tttttttttmoving = false;
+ttttttttt$myCheckBox.trigger('change');
+tttttttt});
 
-                $this.on('mouseleave', function (e) {
-                  var $this = $(this)
-                    , $myCheckBox = $this.siblings('input');
+tttttttt$this.on('mouseleave', function (e) {
+tttttttttvar $this = $(this)
+tttttttttt, $myCheckBox = $this.siblings('input');
 
-                  e.preventDefault();
-                  e.stopImmediatePropagation();
+ttttttttte.preventDefault();
+ttttttttte.stopImmediatePropagation();
 
-                  $this.unbind('mouseleave');
-                  $this.trigger('mouseup');
+ttttttttt$this.unbind('mouseleave');
+ttttttttt$this.trigger('mouseup');
 
-                  $myCheckBox.prop('checked', !(parseInt($this.parent().css('left')) < -25)).trigger('change');
-                });
+ttttttttt$myCheckBox.prop('checked', !(parseInt($this.parent().css('left')) < -25)).trigger('change');
+tttttttt});
 
-                $this.on('mouseup', function (e) {
-                  e.stopImmediatePropagation();
-                  e.preventDefault();
+tttttttt$this.on('mouseup', function (e) {
+ttttttttte.stopImmediatePropagation();
+ttttttttte.preventDefault();
 
-                  $(this).unbind('mousemove');
-                });
-              }
-            });
-          }
-        );
-      },
-      toggleActivation: function () {
-        $(this).toggleClass('deactivate');
-      },
-      isActive: function () {
-        return !$(this).hasClass('deactivate');
-      },
-      setActive: function (active) {
-        if (active)
-          $(this).removeClass('deactivate');
-        else $(this).addClass('deactivate');
-      },
-      toggleState: function (skipOnChange) {
-        var $input = $(this).find('input:checkbox');
-        $input.prop('checked', !$input.is(':checked')).trigger('change', skipOnChange);
-      },
-      setState: function (value, skipOnChange) {
-        $(this).find('input:checkbox').prop('checked', value).trigger('change', skipOnChange);
-      },
-      status: function () {
-        return $(this).find('input:checkbox').is(':checked');
-      },
-      destroy: function () {
-        var $div = $(this).find('div')
-          , $checkbox;
+ttttttttt$(this).unbind('mousemove');
+tttttttt});
+ttttttt}
+tttttt});
+ttttt}
+tttt);
+ttt},
+ttttoggleActivation: function () {
+tttt$(this).toggleClass('deactivate');
+ttt},
+tttisActive: function () {
+ttttreturn !$(this).hasClass('deactivate');
+ttt},
+tttsetActive: function (active) {
+ttttif (active)
+ttttt$(this).removeClass('deactivate');
+ttttelse $(this).addClass('deactivate');
+ttt},
+ttttoggleState: function (skipOnChange) {
+ttttvar $input = $(this).find('input:checkbox');
+tttt$input.prop('checked', !$input.is(':checked')).trigger('change', skipOnChange);
+ttt},
+tttsetState: function (value, skipOnChange) {
+tttt$(this).find('input:checkbox').prop('checked', value).trigger('change', skipOnChange);
+ttt},
+tttstatus: function () {
+ttttreturn $(this).find('input:checkbox').is(':checked');
+ttt},
+tttdestroy: function () {
+ttttvar $div = $(this).find('div')
+ttttt, $checkbox;
 
-        $div.find(':not(input:checkbox)').remove();
+tttt$div.find(':not(input:checkbox)').remove();
 
-        $checkbox = $div.children();
-        $checkbox.unwrap().unwrap();
+tttt$checkbox = $div.children();
+tttt$checkbox.unwrap().unwrap();
 
-        $checkbox.unbind('change');
+tttt$checkbox.unbind('change');
 
-        return $checkbox;
-      }
-    };
+ttttreturn $checkbox;
+ttt}
+tt};
 
-    if (methods[method])
-      return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
-    else if (typeof method === 'object' || !method)
-      return methods.init.apply(this, arguments);
-    else
-      $.error('Method ' + method + ' does not exist!');
-  };
+ttif (methods[method])
+tttreturn methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+ttelse if (typeof method === 'object' || !method)
+tttreturn methods.init.apply(this, arguments);
+ttelse
+ttt$.error('Method ' + method + ' does not exist!');
+t};
 }(jQuery);
 
 $(function () {
-  $('.switch')['bootstrapSwitch']();
+t$('.switch')['bootstrapSwitch']();
 });

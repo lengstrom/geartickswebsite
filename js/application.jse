@@ -1,114 +1,114 @@
 // Some general UI pack related JS
 // Extend JS String with repeat method
 String.prototype.repeat = function(num) {
-  return new Array(num + 1).join(this);
+treturn new Array(num + 1).join(this);
 };
 
 (function($) {
 
-  // Add segments to a slider
-  $.fn.addSliderSegments = function (amount, orientation) {    
-    return this.each(function () {
-      if (orientation == "vertical") {
-        var output = ''
-          , i;
-        for (i = 1; i <= amount - 2; i++) {
-          output += '<div class="ui-slider-segment" style="top:' + 100 / (amount - 1) * i + '%;"></div>';
-        };
-        $(this).prepend(output);
-      } else {
-        var segmentGap = 100 / (amount - 1) + "%"
-          , segment = '<div class="ui-slider-segment" style="margin-left: ' + segmentGap + ';"></div>';
-        $(this).prepend(segment.repeat(amount - 2));
-      }
-    });
-  };
+t// Add segments to a slider
+t$.fn.addSliderSegments = function (amount, orientation) {tt
+ttreturn this.each(function () {
+tttif (orientation == "vertical") {
+ttttvar output = ''
+ttttt, i;
+ttttfor (i = 1; i <= amount - 2; i++) {
+tttttoutput += '<div class="ui-slider-segment" style="top:' + 100 / (amount - 1) * i + '%;"></div>';
+tttt};
+tttt$(this).prepend(output);
+ttt} else {
+ttttvar segmentGap = 100 / (amount - 1) + "%"
+ttttt, segment = '<div class="ui-slider-segment" style="margin-left: ' + segmentGap + ';"></div>';
+tttt$(this).prepend(segment.repeat(amount - 2));
+ttt}
+tt});
+t};
 
-  $(function() {
-  
-    // Todo list
-    $(".todo").on('click', 'li', function() {
-      $(this).toggleClass("todo-done");
-    });
+t$(function() {
+t
+tt// Todo list
+tt$(".todo").on('click', 'li', function() {
+ttt$(this).toggleClass("todo-done");
+tt});
 
-    // Custom Selects
-    $("select[name='huge']").selectpicker({style: 'btn-hg btn-primary', menuStyle: 'dropdown-inverse'});
-    $("select[name='herolist']").selectpicker({style: 'btn-primary', menuStyle: 'dropdown-inverse'});
-    $("select[name='info']").selectpicker({style: 'btn-info'});
+tt// Custom Selects
+tt$("select[name='huge']").selectpicker({style: 'btn-hg btn-primary', menuStyle: 'dropdown-inverse'});
+tt$("select[name='herolist']").selectpicker({style: 'btn-primary', menuStyle: 'dropdown-inverse'});
+tt$("select[name='info']").selectpicker({style: 'btn-info'});
 
-    // Tooltips
-    $("[data-toggle=tooltip]").tooltip("show");
+tt// Tooltips
+tt$("[data-toggle=tooltip]").tooltip("show");
 
-    // Tags Input
-    $(".tagsinput").tagsInput();
+tt// Tags Input
+tt$(".tagsinput").tagsInput();
 
-    // jQuery UI Sliders
-    var $slider = $("#slider");
-    if ($slider.length) {
-      $slider.slider({
-        min: 1,
-        max: 5,
-        value: 2,
-        orientation: "horizontal",
-        range: "min"
-      }).addSliderSegments($slider.slider("option").max);
-    }
+tt// jQuery UI Sliders
+ttvar $slider = $("#slider");
+ttif ($slider.length) {
+ttt$slider.slider({
+ttttmin: 1,
+ttttmax: 5,
+ttttvalue: 2,
+ttttorientation: "horizontal",
+ttttrange: "min"
+ttt}).addSliderSegments($slider.slider("option").max);
+tt}
 
-    var $verticalSlider = $("#vertical-slider");
-    if ($verticalSlider.length) {
-      $verticalSlider.slider({
-        min: 1,
-        max: 5,
-        value: 3,
-        orientation: "vertical",
-        range: "min"
-      }).addSliderSegments($verticalSlider.slider("option").max, "vertical");
-    }
+ttvar $verticalSlider = $("#vertical-slider");
+ttif ($verticalSlider.length) {
+ttt$verticalSlider.slider({
+ttttmin: 1,
+ttttmax: 5,
+ttttvalue: 3,
+ttttorientation: "vertical",
+ttttrange: "min"
+ttt}).addSliderSegments($verticalSlider.slider("option").max, "vertical");
+tt}
 
-    // Placeholders for input/textarea
-    $(":text, textarea").placeholder();
+tt// Placeholders for input/textarea
+tt$(":text, textarea").placeholder();
 
-    // Focus state for append/prepend inputs
-    $('.input-group').on('focus', '.form-control', function () {
-      $(this).closest('.input-group, .form-group').addClass('focus');
-    }).on('blur', '.form-control', function () {
-      $(this).closest('.input-group, .form-group').removeClass('focus');
-    });
+tt// Focus state for append/prepend inputs
+tt$('.input-group').on('focus', '.form-control', function () {
+ttt$(this).closest('.input-group, .form-group').addClass('focus');
+tt}).on('blur', '.form-control', function () {
+ttt$(this).closest('.input-group, .form-group').removeClass('focus');
+tt});
 
-    // Make pagination demo work
-    $(".pagination").on('click', "a", function() {
-      $(this).parent().siblings("li").removeClass("active").end().addClass("active");
-    });
+tt// Make pagination demo work
+tt$(".pagination").on('click', "a", function() {
+ttt$(this).parent().siblings("li").removeClass("active").end().addClass("active");
+tt});
 
-    $(".btn-group").on('click', "a", function() {
-      $(this).siblings().removeClass("active").end().addClass("active");
-    });
+tt$(".btn-group").on('click', "a", function() {
+ttt$(this).siblings().removeClass("active").end().addClass("active");
+tt});
 
-    // Disable link clicks to prevent page scrolling
-    $(document).on('click', 'a[href="#fakelink"]', function (e) {
-      e.preventDefault();
-    });
+tt// Disable link clicks to prevent page scrolling
+tt$(document).on('click', 'a[href="#fakelink"]', function (e) {
+ttte.preventDefault();
+tt});
 
-    // Switch
-    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
+tt// Switch
+tt$("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
 
-        // Typeahead
-    if($('#typeahead-demo-01').length) {
-      $('#typeahead-demo-01').typeahead({
-        name: 'states',
-        limit: 4,
-        local: ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut",
-        "Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky",
-        "Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri",
-        "Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota",
-        "North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina",
-        "South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
-      });
-    }  
+tttt// Typeahead
+ttif($('#typeahead-demo-01').length) {
+ttt$('#typeahead-demo-01').typeahead({
+ttttname: 'states',
+ttttlimit: 4,
+ttttlocal: ["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut",
+tttt"Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky",
+tttt"Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri",
+tttt"Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota",
+tttt"North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina",
+tttt"South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
+ttt});
+tt}t
 
-    // make code pretty
-    window.prettyPrint && prettyPrint();
-    
-  });
-  
+tt// make code pretty
+ttwindow.prettyPrint && prettyPrint();
+tt
+t});
+t
 })(jQuery);

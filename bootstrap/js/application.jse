@@ -4,153 +4,153 @@
 
 !function ($) {
 
-  $(function(){
+t$(function(){
 
-    var $window = $(window)
+ttvar $window = $(window)
 
-    // Disable certain links in docs
-    $('section [href^=#]').click(function (e) {
-      e.preventDefault()
-    })
+tt// Disable certain links in docs
+tt$('section [href^=#]').click(function (e) {
+ttte.preventDefault()
+tt})
 
-    // side bar
-    setTimeout(function () {
-      $('.bs-docs-sidenav').affix({
-        offset: {
-          top: function () { return $window.width() <= 980 ? 290 : 210 }
-        , bottom: 270
-        }
-      })
-    }, 100)
+tt// side bar
+ttsetTimeout(function () {
+ttt$('.bs-docs-sidenav').affix({
+ttttoffset: {
+ttttttop: function () { return $window.width() <= 980 ? 290 : 210 }
+tttt, bottom: 270
+tttt}
+ttt})
+tt}, 100)
 
-    // make code pretty
-    window.prettyPrint && prettyPrint()
+tt// make code pretty
+ttwindow.prettyPrint && prettyPrint()
 
-    // add-ons
-    $('.add-on :checkbox').on('click', function () {
-      var $this = $(this)
-        , method = $this.attr('checked') ? 'addClass' : 'removeClass'
-      $(this).parents('.add-on')[method]('active')
-    })
+tt// add-ons
+tt$('.add-on :checkbox').on('click', function () {
+tttvar $this = $(this)
+tttt, method = $this.attr('checked') ? 'addClass' : 'removeClass'
+ttt$(this).parents('.add-on')[method]('active')
+tt})
 
-    // add tipsies to grid for scaffolding
-    if ($('#gridSystem').length) {
-      $('#gridSystem').tooltip({
-          selector: '.show-grid > [class*="span"]'
-        , title: function () { return $(this).width() + 'px' }
-      })
-    }
+tt// add tipsies to grid for scaffolding
+ttif ($('#gridSystem').length) {
+ttt$('#gridSystem').tooltip({
+tttttselector: '.show-grid > [class*="span"]'
+tttt, title: function () { return $(this).width() + 'px' }
+ttt})
+tt}
 
-    // tooltip demo
-    $('.tooltip-demo').tooltip({
-      selector: "a[data-toggle=tooltip]"
-    })
+tt// tooltip demo
+tt$('.tooltip-demo').tooltip({
+tttselector: "a[data-toggle=tooltip]"
+tt})
 
-    $('.tooltip-test').tooltip()
-    $('.popover-test').popover()
+tt$('.tooltip-test').tooltip()
+tt$('.popover-test').popover()
 
-    // popover demo
-    $("a[data-toggle=popover]")
-      .popover()
-      .click(function(e) {
-        e.preventDefault()
-      })
+tt// popover demo
+tt$("a[data-toggle=popover]")
+ttt.popover()
+ttt.click(function(e) {
+tttte.preventDefault()
+ttt})
 
-    // button state demo
-    $('#fat-btn')
-      .click(function () {
-        var btn = $(this)
-        btn.button('loading')
-        setTimeout(function () {
-          btn.button('reset')
-        }, 3000)
-      })
+tt// button state demo
+tt$('#fat-btn')
+ttt.click(function () {
+ttttvar btn = $(this)
+ttttbtn.button('loading')
+ttttsetTimeout(function () {
+tttttbtn.button('reset')
+tttt}, 3000)
+ttt})
 
-    // carousel demo
-    $('#myCarousel').carousel()
+tt// carousel demo
+tt$('#myCarousel').carousel()
 
-    // javascript build logic
-    var inputsComponent = $("#components.download input")
-      , inputsPlugin = $("#plugins.download input")
-      , inputsVariables = $("#variables.download input")
+tt// javascript build logic
+ttvar inputsComponent = $("#components.download input")
+ttt, inputsPlugin = $("#plugins.download input")
+ttt, inputsVariables = $("#variables.download input")
 
-    // toggle all plugin checkboxes
-    $('#components.download .toggle-all').on('click', function (e) {
-      e.preventDefault()
-      inputsComponent.attr('checked', !inputsComponent.is(':checked'))
-    })
+tt// toggle all plugin checkboxes
+tt$('#components.download .toggle-all').on('click', function (e) {
+ttte.preventDefault()
+tttinputsComponent.attr('checked', !inputsComponent.is(':checked'))
+tt})
 
-    $('#plugins.download .toggle-all').on('click', function (e) {
-      e.preventDefault()
-      inputsPlugin.attr('checked', !inputsPlugin.is(':checked'))
-    })
+tt$('#plugins.download .toggle-all').on('click', function (e) {
+ttte.preventDefault()
+tttinputsPlugin.attr('checked', !inputsPlugin.is(':checked'))
+tt})
 
-    $('#variables.download .toggle-all').on('click', function (e) {
-      e.preventDefault()
-      inputsVariables.val('')
-    })
+tt$('#variables.download .toggle-all').on('click', function (e) {
+ttte.preventDefault()
+tttinputsVariables.val('')
+tt})
 
-    // request built javascript
-    $('.download-btn .btn').on('click', function () {
+tt// request built javascript
+tt$('.download-btn .btn').on('click', function () {
 
-      var css = $("#components.download input:checked")
-            .map(function () { return this.value })
-            .toArray()
-        , js = $("#plugins.download input:checked")
-            .map(function () { return this.value })
-            .toArray()
-        , vars = {}
-        , img = ['glyphicons-halflings.png', 'glyphicons-halflings-white.png']
+tttvar css = $("#components.download input:checked")
+tttttt.map(function () { return this.value })
+tttttt.toArray()
+tttt, js = $("#plugins.download input:checked")
+tttttt.map(function () { return this.value })
+tttttt.toArray()
+tttt, vars = {}
+tttt, img = ['glyphicons-halflings.png', 'glyphicons-halflings-white.png']
 
-    $("#variables.download input")
-      .each(function () {
-        $(this).val() && (vars[ $(this).prev().text() ] = $(this).val())
-      })
+tt$("#variables.download input")
+ttt.each(function () {
+tttt$(this).val() && (vars[ $(this).prev().text() ] = $(this).val())
+ttt})
 
-      $.ajax({
-        type: 'POST'
-      , url: /\?dev/.test(window.location) ? 'http://localhost:3000' : 'http://bootstrap.herokuapp.com'
-      , dataType: 'jsonpi'
-      , params: {
-          js: js
-        , css: css
-        , vars: vars
-        , img: img
-      }
-      })
-    })
-  })
+ttt$.ajax({
+tttttype: 'POST'
+ttt, url: /\?dev/.test(window.location) ? 'http://localhost:3000' : 'http://bootstrap.herokuapp.com'
+ttt, dataType: 'jsonpi'
+ttt, params: {
+tttttjs: js
+tttt, css: css
+tttt, vars: vars
+tttt, img: img
+ttt}
+ttt})
+tt})
+t})
 
 // Modified from the original jsonpi https://github.com/benvinegar/jquery-jsonpi
 $.ajaxTransport('jsonpi', function(opts, originalOptions, jqXHR) {
-  var url = opts.url;
+tvar url = opts.url;
 
-  return {
-    send: function(_, completeCallback) {
-      var name = 'jQuery_iframe_' + jQuery.now()
-        , iframe, form
+treturn {
+ttsend: function(_, completeCallback) {
+tttvar name = 'jQuery_iframe_' + jQuery.now()
+tttt, iframe, form
 
-      iframe = $('<iframe>')
-        .attr('name', name)
-        .appendTo('head')
+tttiframe = $('<iframe>')
+tttt.attr('name', name)
+tttt.appendTo('head')
 
-      form = $('<form>')
-        .attr('method', opts.type) // GET or POST
-        .attr('action', url)
-        .attr('target', name)
+tttform = $('<form>')
+tttt.attr('method', opts.type) // GET or POST
+tttt.attr('action', url)
+tttt.attr('target', name)
 
-      $.each(opts.params, function(k, v) {
+ttt$.each(opts.params, function(k, v) {
 
-        $('<input>')
-          .attr('type', 'hidden')
-          .attr('name', k)
-          .attr('value', typeof v == 'string' ? v : JSON.stringify(v))
-          .appendTo(form)
-      })
+tttt$('<input>')
+ttttt.attr('type', 'hidden')
+ttttt.attr('name', k)
+ttttt.attr('value', typeof v == 'string' ? v : JSON.stringify(v))
+ttttt.appendTo(form)
+ttt})
 
-      form.appendTo('body').submit()
-    }
-  }
+tttform.appendTo('body').submit()
+tt}
+t}
 })
 
 }(window.jQuery)
