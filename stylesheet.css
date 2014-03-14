@@ -47,11 +47,11 @@ nav::selection {
 div.carousel-inner>div.item>div.panel>div.panel-body {
   overflow-y:auto;
 }
-iframe#promote, iframe#state {
+iframe#promote, iframe#state, iframe#gitpresentation {
   width:100%;
   min-height:70%;
 }
-div#video-carousel {
+div#video-carousel, div#resources-carousel {
   position:absolute;
   left:200px;
   right:200px;

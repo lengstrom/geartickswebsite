@@ -9,10 +9,54 @@
     <script type = 'text/javascript' src = 'js/jquery-2.0.3.min.js'></script>
     <script type = 'text/javascript' src = 'js/bootstrap.min.js'></script>
     <script type = 'text/javascript' src = 'standard/setStandard.js'></script>
+    <style>
+      div#header {
+        display:none;
+      }
+    </style>
   </head>
   <body>
     <div id = 'body'>
-      <iframe id = 'gitpresentation' src = 'https://docs.google.com/presentation/d/15s-VQrUwBj1AbFT7SuKhPqUqiUh6LgqFFdh2Hx19TFY/embed?start=false&loop=false' frameborder = '0' allowfullscreen></iframe>
+      <div id = 'resources-carousel' class="carousel slide" data-ride="carousel" data-interval = 'false'>
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#resources-carousel" data-slide-to="0" class="active"></li>
+          <li data-target="#resources-carousel" data-slide-to="1"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <div class = 'panel panel-default'>
+              <div class = 'panel-heading bold'>Git Presentation</div>
+              <div class = 'panel-body'>
+                <iframe id = 'gitpresentation' src = 'https://docs.google.com/presentation/d/15s-VQrUwBj1AbFT7SuKhPqUqiUh6LgqFFdh2Hx19TFY/embed?start=false&loop=false' frameborder = '0' allowfullscreen></iframe>
+                <div class = 'panel panel-default'>
+                  <div class = 'panel-body'>
+                    <p>Our presentation about using Git and GitHub, which were very important to our programming this year. We have asked FIRST to present this presentation at the World Festival, whether or not our team makes it there.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class = 'panel panel-default'>
+              <div class = 'panel-heading bold'>Materials Presentation</div>
+              <div class = 'panel-body'>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#resources-carousel" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#resources-carousel" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
     </div>
   </body>
 </html>
