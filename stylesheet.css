@@ -47,7 +47,7 @@ nav::selection {
 div.carousel-inner>div.item>div.panel>div.panel-body {
   overflow-y:auto;
 }
-iframe#promote, iframe#state, iframe#gitpresentation, iframe#materialspresentation {
+iframe {
   width:100%;
   min-height:70%;
 }
