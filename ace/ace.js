@@ -4,6 +4,6 @@
       a && a.config.init();
       if (!window.ace) window.ace = {};
       for (var key in a) if (a.hasOwnProperty(key))
-        tace[key] = a[key];
+        ace[key] = a[key];
     });
   })();
