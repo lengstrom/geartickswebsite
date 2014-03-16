@@ -9,6 +9,13 @@
     <script type = 'text/javascript' src = 'js/jquery-2.0.3.min.js'></script>
     <script type = 'text/javascript' src = 'js/bootstrap.min.js'></script>
     <script type = 'text/javascript' src = 'standard/setStandard.js'></script>
+    <script>
+      function scalevidpanels() {
+        $('div.carousel-inner>div.item>div.panel>div.panel-body').css('height', String(window.innerHeight - 120) + 'px');
+      }
+      window.onload = scalevidpanels;
+      window.onresize = scalevidpanels;
+    </script>
     <style>
       div#header {
         display:none;
