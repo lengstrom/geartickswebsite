@@ -16,7 +16,7 @@
       window.onload = function() {
         scalevidpanels();
         $('iframe#scoutingsheet').load(function() {
-          this.attr('src', this.attr('src'));
+          $(this).attr('src', $(this).attr('src'));
         });
       }
       window.onresize = scalevidpanels;
