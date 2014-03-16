@@ -68,6 +68,7 @@ img#tshirt {
 }
 .carousel-indicators {
   top:10px;
+  height:30px;
 }
 .carousel-indicators>li {
   border:1px solid #000;
