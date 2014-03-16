@@ -66,3 +66,9 @@ img#tshirt {
   left:50%;
   margin-left:-150px;
 }
+.carousel-indicators>li {
+  border:1px solid #000;
+}
+.carousel-indicators>li.active {
+  background-color: #000;
+}

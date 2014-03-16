@@ -13,7 +13,11 @@
       function scalevidpanels() {
         $('div.carousel-inner>div.item>div.panel>div.panel-body').css('height', String(window.innerHeight - 120) + 'px');
       }
-      window.onload = scalevidpanels;
+      window.onload = function() {
+        scalevidpanels();
+        $('iframe#scoutingsheet').load(function() {
+          this.attr('src', this.attr('src'));
+        })
       window.onresize = scalevidpanels;
     </script>
     <style>
