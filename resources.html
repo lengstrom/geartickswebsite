@@ -15,9 +15,9 @@
       }
       window.onload = function() {
         scalevidpanels();
-        $('iframe#scoutingsheet').load(function() {
-          $(this).attr('src', $(this).attr('src'));
-        });
+        setTimeout(function() {
+          $('iframe#scoutingsheet').attr('src', $('iframe#scoutingsheet').attr('src'));
+        }, 3000);
       }
       window.onresize = scalevidpanels;
     </script>
