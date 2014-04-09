@@ -11,6 +11,7 @@ function return404(response) {
   });
 }
 
+console.log('Starting server\n');
 http.createServer(function(req, res) {
   console.log(req.url);
   var filename = './files' + req.url;
