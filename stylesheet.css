@@ -76,10 +76,3 @@ img#tshirt {
 .carousel-indicators>li.active {
   background-color: #000;
 }
-#updates {
-    overflow:scroll;
-}
-#updatesPanel {
-    /*overflow:hidden;*/
-    height:700px;
-}
