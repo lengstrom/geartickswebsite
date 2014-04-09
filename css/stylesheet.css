@@ -49,7 +49,7 @@ div.carousel-inner>div.item>div.panel>div.panel-body {
 }
 iframe {
   width:100%;
-  min-height:70%;
+  min-height:80%;
 }
 div#video-carousel, div#resources-carousel {
   position:absolute;
