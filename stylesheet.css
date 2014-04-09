@@ -60,3 +60,19 @@ div#video-carousel, div#resources-carousel {
   background-image:none;
   color:black;
 }
+img#tshirt {
+  position:relative;
+  width:300px;
+  left:50%;
+  margin-left:-150px;
+}
+.carousel-indicators {
+  top:10px;
+  height:30px;
+}
+.carousel-indicators>li {
+  border:1px solid #000;
+}
+.carousel-indicators>li.active {
+  background-color: #000;
+}
