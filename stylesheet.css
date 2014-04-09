@@ -80,6 +80,6 @@ img#tshirt {
     overflow:scroll;
 }
 #updatesPanel {
-    overflow:hidden;
+    /*overflow:hidden;*/
     height:700px;
 }
