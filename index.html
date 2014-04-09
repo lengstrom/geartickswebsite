@@ -16,6 +16,7 @@
 					dataType: 'json',
 					success: (function() {
 						return function(server_response) {
+							debugger;
 							var article = server_response.articles[0];
 							var panel = $('<div>').addClass('panel panel-default').append($('<div>').addClass('panel-heading').append($('<h4>').addClass('panel-title').text(article.title + ' (' + article.date + ')')));
 							var body = $('<div>').addClass('panel-body');
