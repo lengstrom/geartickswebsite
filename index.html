@@ -16,15 +16,16 @@
 					dataType: 'json',
 					success: (function() {
 						return function(server_response) {
-							debugger;
-							var article = server_response.articles[0];
-							var panel = $('<div>').addClass('panel panel-default').append($('<div>').addClass('panel-heading').append($('<h4>').addClass('panel-title').text(article.title + ' (' + article.date + ')')));
-							var body = $('<div>').addClass('panel-body');
-							for (var i = 0; i < article.contents.length; i++) {
-								body.append($('<p>').html(article.contents[i]));
+							for (var j in server_response.articles) {
+								var article = server_response.articles[j];
+								var panel = $('<div>').addClass('panel panel-default').append($('<div>').addClass('panel-heading').append($('<h4>').addClass('panel-title').text(article.title + ' (' + article.date + ')')));
+								var body = $('<div>').addClass('panel-body');
+								for (var i = 0; i < article.contents.length; i++) {
+									body.append($('<p>').html(article.contents[i]));
+								}
+								panel.append(body);
+								$('#updates').append(panel);
 							}
-							panel.append(body);
-							$('#updates').append(panel);
 						}
 					}())
 				});
