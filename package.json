@@ -1,7 +1,7 @@
 {
   "name": "geartickswebsite",
-  "version": "0.0.0",
-  "description": "My personal website.",
+  "version": "0.0.1",
+  "description": "GearTicks website.",
   "main": "server.js",
   "dependencies": {
     "mime":"~1.2.11",
