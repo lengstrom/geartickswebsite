@@ -2,15 +2,16 @@
   "name": "geartickswebsite",
   "version": "0.0.0",
   "description": "My personal website.",
-  "main": "",
+  "main": "server.js",
   "dependencies": {
+    "mime":"~1.2.11",
     "express": "~3.4.8",
     "logfmt": "~0.20.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node remote-server.js"
+    "start": "node server.js"
   },
   "author": "Logan-Engstrom",
   "license": "MIT"

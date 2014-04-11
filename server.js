@@ -1,6 +1,7 @@
 var http = require('http');
 var fs = require('fs');
 var mime = require('mime').types;
+var port = Number(process.env.PORT || 5000);
 
 function return404(response) {
   fs.readFile('404.html', function (err, data) {
@@ -57,4 +58,6 @@ http.createServer(function(req, res) {
       }
     });
   }
-}).listen(80);
+}).listen(port, function() {
+      console.log("Listening on " + port);
+});
