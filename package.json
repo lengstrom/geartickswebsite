@@ -1,8 +1,8 @@
 {
-  "name": "personalwebsite",
+  "name": "geartickswebsite",
   "version": "0.0.0",
   "description": "My personal website.",
-  "main": "server.js",
+  "main": "",
   "dependencies": {
     "express": "~3.4.8",
     "logfmt": "~0.20.0"
@@ -10,7 +10,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node remote-server.js"
   },
   "author": "Logan-Engstrom",
   "license": "MIT"
