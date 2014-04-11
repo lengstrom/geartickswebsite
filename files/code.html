@@ -47,7 +47,7 @@
 							We found that we can harm our robot significantly if the Samantha Module loses connectivity to the FCS, which can't be detected by JoystickDriver.c.
 							Read more <a href = 'http://www.technoguards.org/node/407'>here</a>.
 							We modified this code a little bit to make it more readable and to base the timeout on time instead of number of checks in a row that didn't see a new message, for greater accuracy.
-							See our version <a href = 'ModdedJoystickDriver.c'>here</a>.
+							See our version <a href = '/code/ModdedJoystickDriver.c'>here</a>.
 						</p>
 					</div>
 				</div>
@@ -121,7 +121,7 @@ task main() {
 						</p>
 						<div id = 'editor3' style = 'height:127px' class = 'editor'>task main() {
 	if (externalBattery == -1) { //if the battery is off
-		for (int i = 0; i < 25; i++) { //play a beep noise 25 times
+		for (int i = 0; i &lt; 25; i++) { //play a beep noise 25 times
 			PlaySound(soundException);
 			while (bSoundActive);
 		}

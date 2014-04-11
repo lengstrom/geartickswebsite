@@ -15,13 +15,19 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#if defined(NXT) || defined(TETRIX)
-  #pragma autoStartTasks        // Automatically start this task when the main user program starts.
-#elif defined(VEX)
-  #pragma platform(VEX, FRC)
+#if (defined(NXT) || defined(TETRIX)) && defined(_Target_Robot_) && !defined(NaturalLanguage)
+#pragma autoStartTasks        // Automatically start this task when the main user program starts.
+#elif (defined(VEX2) || defined(NXT) || defined(TETRIX)) && defined(_Target_VirtWorld_)
+//Virtual Worlds - No need to use most of this driver, so don't start the ReadMsgFromPC task.
+#elif defined(NaturalLanguage)
+//Manually Start for Natural Language - Otherwise, ReadMsgFromPC will never let the NL program end.
+#elif (defined(NXT) || defined(TETRIX)) && defined(_Target_Emulator_)
+  #warning "This driver may not work with 'Emulator'."
+#else
+  #error "This driver is not supported on this platform."
 #endif
 
-#pragma systemFile            // this eliminates warning for "unreferenced" functions
+#pragma systemFile
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -35,10 +41,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-typedef struct {
+#if defined(_Target_Robot_)
+typedef struct
+{
   bool    UserMode;          // Autonomous or Telep-Operated mode
-  bool    StopPgm;           // true when waiting for start
-  bool    Connected;         // true when connected to FCS
+  bool    StopPgm;           // Stop program
+  bool    Connected;         // Are we connected?
 
   short   joy1_x1;           // -128 to +127
   short   joy1_y1;           // -128 to +127
@@ -54,24 +62,19 @@ typedef struct {
   short   joy2_Buttons;      // Bit map for 12-buttons
   short   joy2_TopHat;       // value -1 = not pressed, otherwise 0 to 7 for selected "octant".
 } TJoystick;
-
-
 TJoystick joystick;      // User defined variable access
+
+#else
+TPCJoystick joystick;
+#endif
 
 
 #if defined(hasJoystickMessageOpcodes)
-
-  intrinsic void getJoystickSettings(TJoystick &joystick) {
-    asm(opcdSystemFunctions, byte(sysFuncGetJoysticks), variableRefRAM(joystick));
-  }
-
+intrinsic void getJoystickSettings(TJoystick &joystick)
+asm(opcdSystemFunctions, byte(sysFuncGetJoysticks),
+variableRefRAM(joystick));
 #endif
-#if defined(NXT) || defined(TETRIX)
 
-const TMailboxIDs kJoystickQueueID = mailbox1;
-TJoystick joystickCopy;  // Internal buffer to hold the last received message from the PC. Do not use
-
-long ntotalMessageCount = 0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -79,13 +82,31 @@ long ntotalMessageCount = 0;
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#if defined(_Target_Robot_)
 #define getJoystickSettings(joystick)   memcpy(joystick, joystickCopy, sizeof(joystick))
+
 bool joy1Btn(int btn) {
-  return ((joystick.joy1_Buttons & (1 << (btn - 1))) != 0);
+	return ((joystick.joy1_Buttons & (1 << (btn - 1))) != 0);
 }
 bool joy2Btn(int btn) {
-  return ((joystick.joy2_Buttons & (1 << (btn - 1))) != 0);
+	return ((joystick.joy2_Buttons & (1 << (btn - 1))) != 0);
 }
+
+#else
+
+#define getJoystickSettings getPCJoystickSettings
+bool joy1Btn(int btn) {
+	return ((joystick.joy1_Buttons & (1 << (btn - 1))) != 0);
+}
+#endif
+
+
+// Code Below Does Not Apply to Virtual/Emulator Robots
+#if (defined(NXT) || defined(TETRIX)) && defined(_Target_Robot_)
+const TMailboxIDs kJoystickQueueID = mailbox1;
+TJoystick joystickCopy;  // Internal buffer to hold the last received message from the PC. Do not use
+
+long ntotalMessageCount = 0;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -100,9 +121,9 @@ bool joy2Btn(int btn) {
 // "joystickCopy" buffer.
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-task readMsgFromPC() {
+#if defined(_Target_Robot_)
+task readMsgFromPC()
+{
   bool bMsgFound;
 
   TFileIOResult nBTCmdRdErrorStatus;
@@ -111,9 +132,10 @@ task readMsgFromPC() {
 
   // Initialize setting to default values in case communications with PC is broken.
 
+  //joystickCopy.TeamColor = false;
   joystickCopy.UserMode  = false;
   joystickCopy.StopPgm   = true;
-  joystickCopy.Connected = false;
+  joystickCopy.Connected = true;
 
   joystickCopy.joy1_x1 = 0;
   joystickCopy.joy1_y1 = 0;
@@ -129,8 +151,7 @@ task readMsgFromPC() {
   joystickCopy.joy2_Buttons = 0;
   joystickCopy.joy2_TopHat = -1;
 
-  //variable that counts the 4ms scans that occur without a message
-  long lastmsg = nPgmTime; //pretend we have received a message right now
+  int messagetime = nPgmTime;
 
   while (true) {
     // Check to see if a message is available.
@@ -145,21 +166,22 @@ task readMsgFromPC() {
 
       nSizeOfMessage = cCmdMessageGetSize(kJoystickQueueID);
 
-      if (nSizeOfMessage < 17) {
+      if (nSizeOfMessage <= 0)
+      {
         if (!bMsgFound) {
-          // since there's no message, increment the counter at the same time if enough empty messages go by mark the connection as offline
-          if ((nPgmTime - lastmsg) % 65536 > 800) joystickCopy.Connected = false; //record that we have come disconnected if no messages are received for .8 seconds
+          if ((nPgmTime - messagetime) % 32768 > 800) joystickCopy.Connected = false;
           wait1Msec(4);    // Give other tasks a chance to run
           continue;        // No message this time. Loop again
         }
+        break;
         //
         // No more messages available and at least one message found. This is not essential but
         // useful to ensure that we're working with the latest message. We simply discard earlier
         // messages. This is useful because there could be many messages queued and we don't
         // want to work with stale data.
         //
-        break;
       }
+
       if (nSizeOfMessage > sizeof(tempBuffer)) nSizeOfMessage = sizeof(tempBuffer);
       nBTCmdRdErrorStatus = cCmdMessageRead(&tempBuffer[0], nSizeOfMessage, kJoystickQueueID);
       nBTCmdRdErrorStatus = nBTCmdRdErrorStatus; //Get rid of info message
@@ -174,11 +196,11 @@ task readMsgFromPC() {
 
     hogCPU();   // grab CPU for duration of critical section
 
-    ntotalMessageCount++;
+    ++ntotalMessageCount;
 
     joystickCopy.UserMode           = (bool)tempBuffer[1];
     joystickCopy.StopPgm            = (bool)tempBuffer[2];
-    joystickCopy.Connected          = true; //record that we are connected
+    joystickCopy.Connected          = true;
 
     joystickCopy.joy1_x1            = tempBuffer[3];
     joystickCopy.joy1_y1            = tempBuffer[4];
@@ -200,13 +222,13 @@ task readMsgFromPC() {
     joystickCopy.joy2_y1            = -joystickCopy.joy2_y1; // Negate to "natural" position
     joystickCopy.joy2_y2            = -joystickCopy.joy2_y2; // Negate to "natural" position
 
-    lastmsg = nPgmTime; //now is the last time we received a message
+    messagetime = nPgmTime;
 
     releaseCPU(); // end of critical section
   }
 }
+#endif
 
-#if defined(TETRIX)
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
 //                                        displayDiagnostics
@@ -218,35 +240,46 @@ task readMsgFromPC() {
 //
 ///////////////////////////////////////////////////////////////////////////////////////////
 
+
 bool bDisplayDiagnostics = true;  // Set to false in user program to disable diagnostic display
 
 void getUserControlProgram(string& sFileName);
+
+#if defined(TETRIX) && defined(_Target_Robot_)
 
 void disableDiagnosticsDisplay() {
   bDisplayDiagnostics = false;   // Disable diagnostic display
 }
 
-
 task displayDiagnostics() {
   string sFileName;
-
-  getUserControlProgram(sFileName);
-  nxtDisplayTextLine(6, "Teleop FileName:");
-  nxtDisplayTextLine(7, sFileName);
   bNxtLCDStatusDisplay = true;
-  while (bDisplayDiagnostics) { //quit if we disable diagnostic display
-    getJoystickSettings(joystick);                   //Update variables with current joystick values
+  getUserControlProgram(sFileName);
 
-    if (joystick.StopPgm) nxtDisplayCenteredTextLine(1, "Wait for Start");
-    else if (joystick.UserMode) nxtDisplayCenteredTextLine(1, "TeleOp Running");
-    else nxtDisplayCenteredTextLine(1, "Auton Running");
+  while (true) {
+    if (bDisplayDiagnostics) {
+      nxtDisplayTextLine(6, "Teleop FileName:");
+      nxtDisplayTextLine(7, sFileName);
 
-    if (externalBatteryAvg < 0) nxtDisplayTextLine(3, "Ext Batt: OFF");       //External battery is off or not connected
-    else nxtDisplayTextLine(3, "Ext Batt:%4.1f V", externalBatteryAvg / (float) 1000);
-    nxtDisplayTextLine(4, "NXT Batt:%4.1f V", nAvgBatteryLevel / (float) 1000);   // Display NXT Battery Voltage
+      getJoystickSettings(joystick);                   //Update variables with current joystick values
 
-    if (joystick.Connected) nxtDisplayTextLine(5, "FMS Msgs: %d", ntotalMessageCount);   // Display Count of FMS messages
-    else nxtDisplayTextLine(5, "No FMS!: %d", ntotalMessageCount);   // Display Count of FMS messages
+      if (joystick.StopPgm)
+        nxtDisplayCenteredTextLine(1, "Wait for Start");
+      else if (joystick.UserMode)
+        nxtDisplayCenteredTextLine(1, "TeleOp Running");
+      else
+        nxtDisplayCenteredTextLine(1, "Auton Running");
+
+      if ( externalBatteryAvg < 0)
+        nxtDisplayTextLine(3, "Ext Batt: OFF");       //External battery is off or not connected
+      else
+        nxtDisplayTextLine(3, "Ext Batt:%4.1f V", externalBatteryAvg / (float) 1000);
+
+      nxtDisplayTextLine(4, "NXT Batt:%4.1f V", nAvgBatteryLevel / (float) 1000);   // Display NXT Battery Voltage
+
+      nxtDisplayTextLine(5, "FMS Msgs: %d", ntotalMessageCount);   // Display Count of FMS messages
+    }
+
     wait1Msec(200);
   }
 }
@@ -261,8 +294,8 @@ task displayDiagnostics() {
 // Note that the filename includes the ".rxe" (robot executable file) file extension.
 //
 ///////////////////////////////////////////////////////////////////////////////////////////
-
-const string kConfigName = "FTCConfig.txt";
+#endif
+string kConfigName = "FTCConfig.txt";
 
 void getUserControlProgram(string& sFileName)
 {
@@ -275,17 +308,24 @@ void getUserControlProgram(string& sFileName)
   nParmToReadByte[1] = 0;
   hFileHandle = 0;
   OpenRead(hFileHandle, nIoResult, kConfigName, nFileSize);
-  if (nIoResult == ioRsltSuccess)
-  {
-    for (int index = 0; index < nFileSize; ++index)
-    {
-      ReadByte(hFileHandle, nIoResult, nParmToReadByte[0]);
+  if (nIoResult == ioRsltSuccess) {
+    for (int index = 0; index < nFileSize; ++index) {
+      ReadByte(hFileHandle, nIoResult,  nParmToReadByte[0]);
       strcat(sFileName, &nParmToReadByte[0]);
     }
+
+    //
+    // Delete the ".rxe" file extension
+    //
+    int nFileExtPosition;
+
+    nFileExtPosition = strlen(sFileName) - 4;
+    if (nFileExtPosition > 0)
+      StringDelete(sFileName, nFileExtPosition, 4);
   }
   Close(hFileHandle, nIoResult);
+  return;
 }
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -299,11 +339,11 @@ void getUserControlProgram(string& sFileName)
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void waitForStart() {
-  getJoystickSettings(joystick);
-  while (joystick.StopPgm) {
+  while (true) {
     getJoystickSettings(joystick);
+    if (!joystick.StopPgm) break;
   }
+  return;
 }
 
-#endif
 #endif
