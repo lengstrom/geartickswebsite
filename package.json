@@ -1,10 +1,10 @@
 {
   "name": "geartickswebsite",
   "version": "0.0.1",
-  "description": "GearTicks website.",
+  "description": "GearTicks (FTC 6055) website.",
   "main": "server.js",
   "dependencies": {
-    "mime":"~1.2.11",
+    "mime": "~1.2.11",
     "express": "~3.4.8",
     "logfmt": "~0.20.0"
   },

@@ -1,11 +1,19 @@
 {
   "articles": [
     {
+      "data": "07\/23\/2014",
+      "title": "Gear Up With FTC Presentation",
+      "contents": [
+        "We presented our Materials Presentation on Gear Up With FTC! You can view the recording <a href='https://www.youtube.com/watch?v=wB0lS6CCU1E&list=PLEuGrYl8iBm67Us-rLsbCIupZQlC4eczB&index=5'>here</a>.",
+        "Although we were initaially postponed a day due to FIRST having technical issues, everyone who presented had a blast. Jack even video-called in from Maine to present. We hope other teams will be able to learn from this presentation, and use a larger variety of materials next year."
+      ]
+    },
+    {
       "date": "05\/27\/2014",
       "title": "World Championship Results!",
       "contents": [
         "We did very well at worlds!",
-        "In the rankings, we did excellently, coming in the middle of the pack. In judging, we accomplished even mroe. We were finalists in the ___ category, and even won a Judges' award, which came out to be the \"Ph. D. in Materials Science Award\".",
+        "In the rankings, we did excellently, coming in the middle of the pack. In judging, we accomplished even more. We were finalists for the PTC Design Award, and even won a Judges' award, which came out to be the \"Ph. D. in Materials Science Award\".",
         "As for the next season, we've already begun our outreach, programming, Computer Aided Design, and GitHub efforts. The Gearticks are very excited to start on next year's competition! "
       ]
     },
