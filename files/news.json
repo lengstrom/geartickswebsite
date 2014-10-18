@@ -1,5 +1,13 @@
-{
+﻿{
   "articles": [
+    {
+      "date": "09\/25\/2014",
+      "title":"Visiting iRobot",
+      "contents":[
+         "Today we visited iRobot to learn about CNC machines and transforming PTC Creo CAD models into finished, solid pieces",
+	 "<img src = '/images/IMG_20140925_151927918.jpg'/>"
+       ]
+    },
     {
       "date": "07\/23\/2014",
       "title": "Gear Up With FTC Presentation",
