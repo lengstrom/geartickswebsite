@@ -2,6 +2,13 @@
   "articles": [
     {
       "date": "09\/25\/2014",
+      "title":"New scoring sheet",
+      "contents":[
+         "We released a new scoring sheet - check it out <a href = 'https://docs.google.com/document/d/1Hm9JtBSwORX8uge0zEnBOyvXWC62dQ_E7rQkf01gFEY/pub'>here</a>!"
+       ]
+    },
+    {
+      "date": "09\/25\/2014",
       "title":"Visiting iRobot",
       "contents":[
          "Today we visited iRobot to learn about CNC machines and transforming PTC Creo CAD models into finished, solid pieces",
